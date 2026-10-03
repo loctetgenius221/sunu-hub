@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+
+/*
+ * Charte SUNU HŪB (extraite de « SUNU HŪB - Projet.pdf ») appliquée à la
+ * direction artistique « Éditorial institutionnel isométrique ».
+ *  - navy   : structure (titres, liens, sections d'action, pied de page)
+ *  - orange : action et chaleur (bouton principal, bande défilante)
+ *  - green  : signal (vérifié, pastilles, accents sur fond marine)
+ */
+@theme {
+  --font-display: 'Newsreader', Georgia, serif;
+  --font-sans: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+
+  --color-navy: #0c3470;
+  --color-navy-deep: #0a2a5c;
+  --color-orange: #ff6b00;
+  --color-green: #00ff57;
+  --color-mint: #81ffac;
+
+  --color-paper: #ffffff;
+  --color-paper-2: #f5faf9;
+  --color-ink: #141414;
+  --color-ink-soft: #565b66;
+  --color-rule: #dcdde0;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--color-ink);
+    background: var(--color-paper);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .display {
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+  }
+
+  .h2 {
+    font-family: var(--font-display);
+    font-weight: 450;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    font-size: clamp(1.8rem, 3vw, 2.75rem);
+    color: var(--color-navy);
+  }
+
+  .wrap {
+    margin-inline: auto;
+    width: min(100% - 2rem, 82rem);
+  }
+
+  @media (min-width: 640px) {
+    .wrap {
+      width: min(100% - 3rem, 82rem);
+    }
+  }
+
+  .grid-paper {
+    background-image:
+      linear-gradient(to right, rgb(12 52 112 / 0.07) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(12 52 112 / 0.07) 1px, transparent 1px);
+    background-size: 72px 72px;
+  }
+
+  /* Champs de formulaire : contour encre, angles droits, focus orange. */
+  .field {
+    width: 100%;
+    min-height: 3rem;
+    border: 2px solid var(--color-ink);
+    background: var(--color-paper);
+    padding: 0.65rem 0.9rem;
+    font-size: 1.05rem;
+  }
+
+  .field:focus {
+    outline: 3px solid var(--color-orange);
+    outline-offset: 2px;
+  }
+
+  .field[aria-invalid='true'] {
+    border-color: var(--color-orange);
+    border-style: dashed;
+  }
+
+  .label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
+
+  .section {
+    padding-block: 4rem;
+  }
+
+  @media (min-width: 640px) {
+    .section {
+      padding-block: 6rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .section {
+      padding-block: 7rem;
+    }
+  }
+}
