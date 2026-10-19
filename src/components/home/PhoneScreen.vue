@@ -1,10 +1,27 @@
 <script setup lang="ts">
+import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { BadgeCheck, Check } from 'lucide-vue-next'
 import SunuMark from '@/components/brand/SunuMark.vue'
 import { alerts, type HowStep } from '@/data/home'
 
 // Écran de téléphone simplifié pour chaque étape de « Comment ça marche ». Purement illustratif.
+// Le téléphone est dessiné à taille fixe (19rem) puis réduit à la place disponible :
+// sur petit écran, le contenu rapetisse avec le cadre au lieu d'en déborder.
 defineProps<{ step: HowStep }>()
+
+const DESIGN_WIDTH = 304 // 19rem
+const frame = ref<HTMLElement | null>(null)
+const scale = ref(1)
+let observer: ResizeObserver | undefined
+
+onMounted(() => {
+  const el = frame.value!
+  const fit = (width: number) => (scale.value = Math.min(1, width / DESIGN_WIDTH))
+  fit(el.clientWidth)
+  observer = new ResizeObserver(([entry]) => fit(entry!.contentRect.width))
+  observer.observe(el)
+})
+onBeforeUnmount(() => observer?.disconnect())
 
 const offers = [
   { title: 'Stage développeur web', org: 'Teranga Digital, Dakar', score: 100 },
@@ -15,7 +32,11 @@ const tracker = ['Enregistrée', 'Envoyée', 'Entretien', 'Réponse reçue']
 </script>
 
 <template>
-  <div class="relative mx-auto aspect-[9/19] w-full max-w-[19rem] rounded-[3rem] bg-[#0b0b0f] p-2.5 shadow-lift" aria-hidden="true">
+  <div ref="frame" class="relative mx-auto aspect-[9/19] w-full max-w-[19rem]" aria-hidden="true">
+    <div
+      class="absolute top-0 left-0 aspect-[9/19] w-[19rem] origin-top-left rounded-[3rem] bg-[#0b0b0f] p-2.5 shadow-lift"
+      :style="{ transform: `scale(${scale})` }"
+    >
     <div class="relative h-full overflow-hidden rounded-[2.4rem] bg-white">
       <div class="absolute top-2.5 left-1/2 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-[#0b0b0f]"></div>
 
@@ -85,6 +106,7 @@ const tracker = ['Enregistrée', 'Envoyée', 'Entretien', 'Réponse reçue']
           <p class="mt-6 rounded-2xl bg-navy-soft p-3 text-[0.75rem] text-navy">Teranga Digital te propose un entretien.</p>
         </div>
       </Transition>
+    </div>
     </div>
   </div>
 </template>

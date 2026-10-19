@@ -170,12 +170,12 @@ const setQuick = (t: string) => (filters.value = { ...filters.value, types: t ? 
           <template v-else>Chargement…</template>
         </p>
 
-        <ul v-if="!results" class="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-2" aria-busy="true">
+        <ul v-if="!results" class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2" aria-busy="true">
           <li v-for="n in 4" :key="n" class="h-64 animate-pulse rounded-card bg-white"></li>
         </ul>
 
         <!-- Fil et sauvegardes -->
-        <ul v-else-if="view !== 'candidatures' && results.length" class="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-2">
+        <ul v-else-if="view !== 'candidatures' && results.length" class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
           <li v-for="o in results" :key="o.id" class="min-w-0">
             <OpportunityCard :item="o" />
             <p v-if="view === 'sauvegardes'" class="mt-2.5 flex items-center gap-2 px-2 text-[0.875rem] text-ink-soft">

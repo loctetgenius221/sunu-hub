@@ -66,6 +66,17 @@ Trois dessins originaux (`public/patterns`), inspirés des tissages d'Afrique de
 
 Règles : jamais derrière un texte long (un dégradé efface le motif du côté du texte), opacité de 7 % au plus pour les textures, orange réservé à la bande, aucune animation en boucle, masqués à l'impression et en mode contraste élevé, vectoriels et mis en cache hors connexion.
 
+## Annotations dessinées
+
+`components/brand/Doodle.vue` : quatre dessins à main levée, un seul trait orange, tracés à l'écran une fois quand ils apparaissent.
+
+- `arrow-curve` (héros, grand écran) : relie la promesse aux offres ouvertes.
+- `megaphone` (tuile WhatsApp) : « on te prévient » ; il remplace l'icône de la tuile.
+- `underline` (chiffres clés) : souligne « 0 FCFA », la gratuité.
+- `arrow-loop` (appel final, à partir de la tablette) : désigne « Créer mon profil ».
+
+Règles : un dessin a toujours un rôle (guider vers une action ou appuyer une promesse), jamais deux dans le même écran, jamais sur du texte. Décoratifs pour les lecteurs d'écran, visibles d'emblée sous « réduire les animations », absents à l'impression.
+
 ## Mouvement
 
 - `v-reveal` : le bloc entre quand il arrive à l'écran et se retire quand il en sort, du côté par lequel il sort. `.stagger` décale les enfants, `.once` joue une seule fois (haut de page, pages de travail).

@@ -29,11 +29,11 @@ const promises = [
 <template>
   <section class="bg-navy-deep text-white">
     <div class="wrap py-14 sm:py-20">
-      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl">
-        <AccentBar class="mb-7" />
+      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl sm:mx-auto sm:text-center lg:mx-0 lg:text-left">
+        <AccentBar class="mb-7 sm:mx-auto lg:mx-0" />
         <h1 class="display text-[clamp(2.5rem,5vw,4.25rem)] text-balance">Choisir ta voie, avec des informations vérifiées.</h1>
-        <p class="mt-5 max-w-xl text-[clamp(1.125rem,1.6vw,1.3125rem)] leading-snug text-white/80">Pour les élèves de Terminale, les nouveaux bacheliers et les étudiants qui veulent se réorienter.</p>
-        <div class="mt-9 flex flex-wrap items-center gap-3">
+        <p class="mt-5 max-w-xl sm:mx-auto lg:mx-0 text-[clamp(1.125rem,1.6vw,1.3125rem)] leading-snug text-white/80">Pour les élèves de Terminale, les nouveaux bacheliers et les étudiants qui veulent se réorienter.</p>
+        <div class="mt-9 flex flex-wrap items-center gap-3 sm:justify-center lg:justify-start">
           <template v-if="store.done">
             <BaseButton :to="{ name: 'orient-results' }" variant="light" size="lg">Voir mes pistes</BaseButton>
             <BaseButton :to="{ name: 'orient-quiz' }" variant="glass" size="lg">Refaire le questionnaire</BaseButton>

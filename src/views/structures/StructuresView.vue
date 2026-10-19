@@ -15,15 +15,15 @@ const icons = { shield: ShieldCheck, file: FileText, inbox: Inbox }
 <template>
   <section class="bg-navy-deep text-white">
     <div class="wrap py-14 sm:py-20">
-      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl">
-        <AccentBar class="mb-7" />
+      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl sm:mx-auto sm:text-center lg:mx-0 lg:text-left">
+        <AccentBar class="mb-7 sm:mx-auto lg:mx-0" />
         <p class="text-[0.9375rem] font-medium text-white/70">Écoles, entreprises, ONG, incubateurs</p>
         <h1 class="display mt-3 text-[clamp(2.5rem,5vw,4.25rem)]">Vos opportunités, devant les bons profils.</h1>
-        <p class="mt-5 max-w-xl text-[1.125rem] leading-snug text-white/80">
+        <p class="mt-5 max-w-xl sm:mx-auto lg:mx-0 text-[1.125rem] leading-snug text-white/80">
           Publiez gratuitement vos stages, emplois juniors, bourses, concours et formations. Ils arrivent aux jeunes dont le
           niveau et la filière correspondent.
         </p>
-        <div class="mt-9 flex flex-wrap gap-3">
+        <div class="mt-9 flex flex-wrap gap-3 sm:justify-center lg:justify-start">
           <BaseButton v-if="store.state.account" :to="{ name: 'structure-dashboard' }" variant="light" size="lg">Accéder à mon espace</BaseButton>
           <BaseButton v-else :to="{ name: 'structure-signup' }" variant="light" size="lg">Créer un compte structure</BaseButton>
           <BaseButton href="#gratuit" variant="glass" size="lg">Ce qui est gratuit</BaseButton>

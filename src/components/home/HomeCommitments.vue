@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { ShieldCheck } from 'lucide-vue-next'
+import Doodle from '@/components/brand/Doodle.vue'
 import { commitments, keyFigures } from '@/data/home'
 
 // Le contexte en trois chiffres sourcés, puis les règles de neutralité, écrites et publiques.
@@ -13,7 +14,10 @@ import { commitments, keyFigures } from '@/data/home'
         <div v-for="f in keyFigures" :key="f.value" class="min-w-0">
           <dt class="sr-only">{{ f.label }}</dt>
           <dd>
-            <span class="display block text-[clamp(2.75rem,5vw,4.25rem)] text-navy tabular-nums">{{ f.value }}</span>
+            <span class="display relative inline-block text-[clamp(2.75rem,5vw,4.25rem)] text-navy tabular-nums">
+              {{ f.value }}
+              <Doodle v-if="f.value === '0 FCFA'" name="underline" :delay="0.4" class="absolute inset-x-0 -bottom-[0.16em] h-[0.26em] w-full" />
+            </span>
             <span class="mt-2 block max-w-[16rem] text-[1.0625rem] leading-snug">{{ f.label }}</span>
             <span class="mt-1 block text-[0.8125rem] text-ink-soft">Source : {{ f.source }}</span>
           </dd>

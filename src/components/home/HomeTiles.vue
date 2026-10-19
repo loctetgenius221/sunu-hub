@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { BellRing, Briefcase, Compass, Search } from 'lucide-vue-next'
+import { Briefcase, Compass, Search } from 'lucide-vue-next'
+import Doodle from '@/components/brand/Doodle.vue'
 import SectionHead from '@/components/ui/SectionHead.vue'
 import { alerts } from '@/data/home'
 import { useProfileStore } from '@/stores/profile'
@@ -57,7 +58,8 @@ const search = () => router.push({ name: 'school-checker', query: q.value.trim()
 
         <!-- Alertes -->
         <RouterLink :to="profile.isRegistered ? '/profil#alertes' : '/inscription'" class="group flex min-h-[15rem] flex-col justify-between gap-6 rounded-tile bg-navy-soft p-8 transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lift sm:p-10">
-          <BellRing :size="28" class="text-navy" aria-hidden="true" />
+          <!-- Le haut-parleur tient lieu d'icône : c'est la tuile « on te prévient ». -->
+          <Doodle name="megaphone" class="-mt-2 -ml-1 w-12 origin-bottom-left -rotate-6 transition-transform duration-300 group-hover:rotate-0" />
           <div>
             <h3 class="text-[clamp(1.5rem,2.4vw,2rem)] leading-tight font-semibold tracking-[-0.025em]">Être prévenu sur WhatsApp</h3>
             <p class="mt-2 max-w-md rounded-2xl rounded-bl-md bg-white px-4 py-3 text-[0.9375rem] shadow-soft">{{ alerts[1]!.text }}</p>

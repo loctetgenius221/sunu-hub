@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 import { animate, scroll, stagger } from 'motion'
 import { EASE, prefersReducedMotion } from '@/composables/useMotion'
 import { BadgeCheck, CalendarClock } from 'lucide-vue-next'
-import AccentBar from '@/components/brand/AccentBar.vue'
+import Doodle from '@/components/brand/Doodle.vue'
 import WaxBand from '@/components/brand/WaxBand.vue'
 import WaxTexture from '@/components/brand/WaxTexture.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
@@ -67,22 +67,25 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
 
 <template>
   <section ref="section" class="relative isolate bg-navy-deep text-white" aria-labelledby="hero-title">
-    <WaxTexture parallax />
+    <WaxTexture parallax tone="text-white/[0.045]" />
     <div
       class="wrap grid grid-cols-1 items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-24"
     >
-      <div ref="copy" v-reveal.once.stagger="{ distance: 24 }" class="min-w-0">
+      <!-- Tablette (sm à lg) : une colonne, contenu centré. Mobile : aligné à gauche, pour la lecture. -->
+      <div ref="copy" v-reveal.once.stagger="{ distance: 24 }" class="min-w-0 sm:text-center lg:text-left">
         <h1 id="hero-title" class="display text-[clamp(2.5rem,6vw,5rem)] text-balance">
-          Choisis ta voie. Trouve ta place.
+          <span class="block">Choisis ta voie.</span> <span class="block">Trouve ta place.</span>
         </h1>
 
         <fieldset class="mt-8">
-          <legend class="mb-3 text-[0.9375rem] text-white/70">Je suis</legend>
-          <div class="inline-flex max-w-full flex-wrap gap-1 rounded-[1.375rem] bg-white/10 p-1">
+          <legend class="mb-3 w-full text-[0.9375rem] text-white/70">Je suis</legend>
+          <!-- Mobile : grille 2 × 2 à cases égales (tout visible, cibles larges).
+               Tablette et plus : une seule rangée de pastilles. -->
+          <div class="grid grid-cols-2 gap-1 rounded-[1.375rem] bg-white/10 p-1 sm:inline-flex sm:max-w-full sm:flex-wrap sm:justify-center lg:justify-start">
             <label
               v-for="s in stages"
               :key="s.id"
-              class="cursor-pointer rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors duration-200 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-white"
+              class="flex min-h-11 cursor-pointer items-center justify-center rounded-full px-3 py-2 text-center text-[0.9375rem] leading-tight font-medium transition-colors duration-200 has-focus-visible:outline-3 has-focus-visible:outline-offset-2 has-focus-visible:outline-white sm:px-4"
               :class="current === s.id ? 'bg-white text-ink' : 'text-white/80 hover:text-white'"
             >
               <input v-model="current" type="radio" name="stage" :value="s.id" class="sr-only" />
@@ -92,13 +95,13 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
         </fieldset>
 
         <p
-          class="mt-5 min-h-[3em] max-w-xl text-[clamp(1.125rem,1.6vw,1.3125rem)] leading-snug text-white/80"
+          class="mt-5 min-h-[3em] max-w-xl text-[clamp(1.125rem,1.6vw,1.3125rem)] leading-snug text-white/80 sm:mx-auto lg:mx-0"
           aria-live="polite"
         >
           {{ stage.promise }}
         </p>
 
-        <div class="mt-7 flex flex-wrap items-center gap-3">
+        <div class="mt-7 flex flex-wrap items-center gap-3 sm:justify-center lg:justify-start">
           <BaseButton v-if="profile.isRegistered" to="/profil" variant="light" size="lg"
             >Voir mon fil</BaseButton
           >
@@ -115,8 +118,10 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
       </div>
 
       <!-- Aperçu du fil : offres réelles, cliquables -->
-      <div ref="aside" class="min-w-0">
-        <p class="mb-3 flex items-center gap-2 text-[0.9375rem] text-white/70">
+      <div ref="aside" class="relative min-w-0 sm:mx-auto sm:w-full sm:max-w-xl lg:max-w-none">
+        <!-- Relie la promesse à la preuve : des offres réelles, ouvertes maintenant. -->
+        <Doodle name="arrow-curve" :delay="1.1" class="absolute top-[4.25rem] -left-24 hidden w-24 lg:block" />
+        <p class="mb-3 flex items-center gap-2 text-[0.9375rem] text-white/70 sm:justify-center lg:justify-start">
           <span class="relative flex h-2 w-2" aria-hidden="true"
             ><span
               class="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-orange opacity-60"

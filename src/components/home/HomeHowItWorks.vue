@@ -54,8 +54,10 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
             v-for="(s, i) in howItWorks"
             :key="s.id"
             v-reveal="{ distance: 24 }"
-            class="flex flex-col justify-center py-8 lg:min-h-[52svh] lg:py-0"
+            class="flex flex-col justify-center py-8 md:grid md:grid-cols-[minmax(0,1fr)_14rem] md:items-center md:gap-x-12 lg:flex lg:min-h-[52svh] lg:py-0"
           >
+            <!-- Tablette : texte et écran côte à côte ; grand écran : l'écran est le téléphone fixe à gauche. -->
+            <div>
             <p class="text-[0.9375rem] font-semibold tabular-nums transition-colors duration-300" :class="active === s.id ? 'text-navy' : 'text-ink-soft'">
               Étape {{ i + 1 }}
             </p>
@@ -66,7 +68,8 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
               {{ s.title }}
             </h3>
             <p class="lead mt-4 max-w-md">{{ s.text }}</p>
-            <div class="mt-10 lg:hidden"><PhoneScreen :step="s.id" class="max-w-[16rem]!" /></div>
+            </div>
+            <div class="mt-10 md:mt-0 lg:hidden"><PhoneScreen :step="s.id" class="max-w-[16rem]!" /></div>
           </li>
         </ol>
         </div>
