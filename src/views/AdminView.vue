@@ -21,17 +21,17 @@ const log = computed(() => (tab.value === 'journal' ? readCuration().log : []))
 </script>
 
 <template>
-  <section class="border-b-2 border-ink bg-ink text-white">
+  <section class="bg-navy-deep text-white">
     <div class="wrap pt-10 sm:pt-12">
-      <p class="inline-block border-2 border-white px-3 py-1 text-sm font-bold">Espace équipe · maquette sans connexion</p>
+      <p class="inline-block rounded-full bg-white/12 px-3 py-1 text-[0.8125rem] font-medium">Espace équipe · maquette sans connexion</p>
       <h1 class="display mt-5 text-[clamp(2rem,3.6vw,3rem)]">Back-office</h1>
-      <nav aria-label="Sections du back-office" class="mt-8 -mb-0.5 flex gap-1 overflow-x-auto">
+      <nav aria-label="Sections du back-office" class="mt-8 mb-10 inline-flex max-w-full gap-1 overflow-x-auto rounded-full bg-white/10 p-1">
         <RouterLink
           v-for="t in tabs"
           :key="t.id"
           :to="{ query: t.id === 'indicateurs' ? {} : { vue: t.id } }"
-          class="shrink-0 border-2 border-b-0 border-ink px-4 py-3 font-semibold"
-          :class="tab === t.id ? 'bg-white text-ink' : 'bg-white/10 text-white hover:bg-white/20'"
+          class="shrink-0 rounded-full px-4 py-2 text-[0.9375rem] font-medium transition-colors"
+          :class="tab === t.id ? 'bg-white text-ink' : 'text-white/80 hover:text-white'"
           :aria-current="tab === t.id ? 'page' : undefined"
         >
           {{ t.label }}
@@ -45,7 +45,7 @@ const log = computed(() => (tab.value === 'journal' ? readCuration().log : []))
     <AdminCuration v-else-if="tab === 'opportunites'" />
     <AdminStructures v-else-if="tab === 'structures'" />
     <section v-else aria-labelledby="h-log">
-      <h2 id="h-log" class="h2 border-b-2 border-ink pb-4">Journal des modifications</h2>
+      <h2 id="h-log" class="h2">Journal des modifications</h2>
       <p v-if="!log.length" class="mt-8 text-ink-soft">Aucune modification pour l'instant.</p>
       <ol class="mt-2">
         <li v-for="(l, i) in log" :key="i" class="grid grid-cols-1 gap-1 border-b border-rule py-3 sm:grid-cols-[12rem_minmax(0,1fr)]">

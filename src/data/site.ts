@@ -8,14 +8,3 @@ export const nav = [
 ]
 
 export const tagline = 'La plateforme qui accompagne, connecte et valorise la jeunesse sénégalaise.'
-
-export const marquee = [
-  'Stages',
-  'Bourses',
-  'Concours',
-  'Premiers emplois',
-  'Orientation',
-  'Écoles vérifiées',
-  'Alertes WhatsApp',
-  'Financements',
-]

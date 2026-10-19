@@ -17,8 +17,11 @@ function toggle() {
 <template>
   <button
     type="button"
-    class="relative z-10 inline-flex min-h-11 items-center gap-2 border-2 border-ink font-semibold transition-colors"
-    :class="[activity.isSaved(id) ? 'bg-navy text-white' : 'bg-white hover:bg-paper-2', compact ? 'min-w-11 justify-center px-2.5' : 'px-4']"
+    class="relative z-10 inline-flex min-h-11 items-center gap-2 rounded-full font-medium transition-colors"
+    :class="[
+      activity.isSaved(id) ? 'bg-navy-soft text-navy' : compact ? 'text-ink-soft hover:bg-paper-2 hover:text-ink' : 'bg-paper-2 text-ink hover:bg-[#e8e8ed]',
+      compact ? 'min-w-11 justify-center px-2.5' : 'px-5',
+    ]"
     :aria-pressed="activity.isSaved(id)"
     @click="toggle"
   >

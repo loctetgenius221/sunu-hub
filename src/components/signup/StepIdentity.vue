@@ -40,7 +40,7 @@ function submit() {
 
 <template>
   <form novalidate @submit.prevent="submit">
-    <h1 class="display text-[clamp(1.8rem,3vw,2.4rem)] text-navy">Faisons connaissance</h1>
+    <h1 class="display text-[clamp(1.875rem,3.4vw,2.5rem)]">Faisons connaissance</h1>
     <p class="mt-3 text-ink-soft">Ton profil reste privé. Aucune structure ne te contacte sans ton accord.</p>
 
     <div class="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -58,8 +58,8 @@ function submit() {
     </div>
 
     <Transition enter-from-class="opacity-0 -translate-y-2" enter-active-class="transition duration-300">
-      <fieldset v-if="minor" class="mt-7 border-2 border-dashed border-ink bg-paper-2 p-5">
-        <legend class="bg-white px-2 text-sm font-bold">Tu as moins de 18 ans</legend>
+      <fieldset v-if="minor" class="mt-7 rounded-card bg-paper-2 p-5 sm:p-6">
+        <legend class="float-left mb-2 w-full font-semibold">Tu as moins de 18 ans</legend>
         <p class="text-sm text-ink-soft">Un parent ou tuteur doit donner son accord. Nous lui enverrons un message de confirmation.</p>
         <div class="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div class="min-w-0">
@@ -83,7 +83,7 @@ function submit() {
       <span>J'accepte les conditions d'utilisation et la politique de confidentialité. Je peux exporter ou supprimer mes données à tout moment.</span>
     </label>
 
-    <p v-if="touched && !valid" class="mt-5 border-l-4 border-orange pl-3 text-sm font-semibold" role="alert">
+    <p v-if="touched && !valid" class="mt-5 rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">
       Il manque une information. Vérifie les champs signalés.
     </p>
 

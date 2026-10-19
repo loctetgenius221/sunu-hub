@@ -2,7 +2,7 @@
 import { computed, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { ArrowLeft } from 'lucide-vue-next'
-import IsoArt from '@/components/art/IsoArt.vue'
+import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ChoiceChips from '@/components/ui/ChoiceChips.vue'
 import { orientQuestions } from '@/data/orientQuestions'
@@ -49,16 +49,16 @@ function next() {
       <div class="min-w-0 lg:col-span-7">
         <h1 class="sr-only">Questionnaire d'orientation</h1>
         <div class="flex items-center gap-4">
-          <button v-if="index > 0" type="button" class="grid h-11 w-11 shrink-0 place-items-center border-2 border-ink bg-white" @click="index--">
+          <button v-if="index > 0" type="button" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white shadow-soft transition hover:bg-[#ececf0]" @click="index--">
             <ArrowLeft :size="18" aria-hidden="true" /><span class="sr-only">Question précédente</span>
           </button>
-          <div class="h-3 flex-1 border-2 border-ink bg-white" role="progressbar" :aria-valuenow="index + 1" aria-valuemin="1" :aria-valuemax="orientQuestions.length" aria-label="Avancement">
-            <div class="h-full bg-orange transition-[width] duration-300" :style="{ width: `${((index + 1) / orientQuestions.length) * 100}%` }"></div>
+          <div class="h-1 flex-1 overflow-hidden rounded-full bg-[#dcdce1]" role="progressbar" :aria-valuenow="index + 1" aria-valuemin="1" :aria-valuemax="orientQuestions.length" aria-label="Avancement">
+            <div class="h-full rounded-full bg-navy transition-[width] duration-500" :style="{ width: `${((index + 1) / orientQuestions.length) * 100}%` }"></div>
           </div>
-          <span class="text-sm font-semibold tabular-nums">{{ index + 1 }}/{{ orientQuestions.length }}</span>
+          <span class="text-[0.875rem] font-medium text-ink-soft tabular-nums">{{ index + 1 }} sur {{ orientQuestions.length }}</span>
         </div>
 
-        <div class="mt-8 border-2 border-ink bg-white p-6 shadow-[10px_10px_0_var(--color-navy)] sm:p-9">
+        <div class="mt-8 rounded-tile bg-white p-7 shadow-soft sm:p-10">
           <Transition
             mode="out-in"
             enter-from-class="opacity-0 translate-x-3"
@@ -71,7 +71,7 @@ function next() {
                 v-model="value"
                 :multiple="question.multiple"
                 :legend="question.title"
-                legend-class="display mb-3 text-[clamp(1.7rem,3vw,2.3rem)] text-navy"
+                legend-class="display mb-4 text-[clamp(1.875rem,3.4vw,2.5rem)]"
                 :options="question.options"
               />
               <p v-if="question.hint" class="mt-4 text-sm text-ink-soft">{{ question.hint }}</p>
@@ -86,8 +86,8 @@ function next() {
         <p class="mt-6 text-sm text-ink-soft">Chaque réponse est enregistrée : tu peux fermer et reprendre plus tard.</p>
       </div>
 
-      <div class="hidden min-w-0 justify-center lg:col-span-4 lg:col-start-9 lg:flex lg:pt-16">
-        <IsoArt kind="signpost" :scale="1.4" />
+      <div class="hidden aspect-[4/5] overflow-hidden rounded-tile lg:sticky lg:top-24 lg:col-span-5 lg:col-start-8 lg:block">
+        <ResponsiveImage name="lyceen" sizes="40vw" />
       </div>
     </div>
   </section>

@@ -41,16 +41,16 @@ const print = () => window.print()
     <div class="wrap flex max-w-[56rem] flex-wrap items-center justify-between gap-4 print:hidden">
       <TextLink :to="{ name: 'orient-results' }">Retour aux pistes</TextLink>
       <div class="flex flex-wrap gap-3">
-        <BaseButton :href="whatsapp" target="_blank" rel="noopener noreferrer" variant="secondary"><Share2 :size="18" aria-hidden="true" />WhatsApp</BaseButton>
+        <BaseButton :href="whatsapp" target="_blank" rel="noopener noreferrer" variant="light" class="shadow-soft"><Share2 :size="18" aria-hidden="true" />WhatsApp</BaseButton>
         <BaseButton @click="print"><Printer :size="18" aria-hidden="true" />Enregistrer en PDF</BaseButton>
       </div>
     </div>
 
-    <article class="wrap mt-8 max-w-[56rem] border-2 border-ink bg-white p-7 sm:p-10 print:mt-0 print:border-0 print:p-0">
-      <header class="flex flex-wrap items-start justify-between gap-4 border-b-2 border-ink pb-5">
+    <article class="wrap mt-8 max-w-[56rem] rounded-tile bg-white p-7 sm:p-10 print:mt-0 print:border-0 print:p-0">
+      <header class="flex flex-wrap items-start justify-between gap-4 border-b border-rule pb-5">
         <div class="min-w-0">
           <p class="text-sm text-ink-soft">Résumé d'orientation · {{ today }}</p>
-          <h1 class="display mt-1 text-[2.2rem] text-navy">Les pistes de {{ name }}</h1>
+          <h1 class="display mt-1 text-[2.2rem]">Les pistes de {{ name }}</h1>
         </div>
         <SunuLogo />
       </header>
@@ -63,12 +63,12 @@ const print = () => window.print()
       </section>
 
       <section class="py-5">
-        <h2 class="font-bold text-navy">Les trois pistes recommandées</h2>
+        <h2 class="font-semibold text-navy">Les trois pistes recommandées</h2>
         <ol class="mt-3">
           <li v-for="(p, i) in results.top" :key="p.program.id" class="grid grid-cols-[2rem_minmax(0,1fr)] gap-3 border-b border-rule py-4 last:border-0">
-            <span class="display text-[1.6rem] leading-none text-navy">{{ i + 1 }}</span>
+            <span class="display text-[1.6rem] leading-none">{{ i + 1 }}</span>
             <div class="min-w-0 text-sm">
-              <p class="text-base font-bold">{{ p.program.name }}</p>
+              <p class="text-base font-semibold">{{ p.program.name }}</p>
               <p>{{ p.school.name }}, {{ p.school.city }} · {{ schoolStatus[p.school.status].label }}{{ p.program.accredited ? ', formation accréditée' : '' }}{{ p.program.cames ? ', reconnue CAMES' : '' }}</p>
               <p class="mt-1"><span class="text-ink-soft">Coût :</span> {{ fcfa(p.program.costRange) }} · <span class="text-ink-soft">durée :</span> {{ p.program.durationYears }} ans · <span class="text-ink-soft">chances :</span> {{ accessLabels[p.access].toLowerCase() }}</p>
               <p class="mt-1"><span class="text-ink-soft">Débouchés (estimation) :</span> {{ p.outcomes.join(', ') }}</p>
@@ -78,7 +78,7 @@ const print = () => window.print()
         </ol>
       </section>
 
-      <footer class="border-t-2 border-ink pt-4 text-xs text-ink-soft">
+      <footer class="border-t border-rule pt-4 text-xs text-ink-soft">
         Ces recommandations s'appuient sur les réponses de {{ name }} et sur des informations vérifiées (source et date sur chaque fiche).
         Elles ne garantissent ni une admission ni un emploi. Les vœux publics se saisissent par le bachelier lui-même sur Campusen.
         <template v-if="a.family === 'forte'"> Votre avis compte : parlez-en ensemble, un conseiller peut vous accompagner gratuitement.</template>

@@ -4,7 +4,7 @@ import { useProfileStore } from '@/stores/profile'
 import { useOrientationStore } from '@/stores/orientation'
 import { useStructureStore } from '@/stores/structure'
 
-// Les pages pas encore construites pointent vers PlaceholderView (meta.phase = étape du plan).
+// Toute adresse inconnue mène à la page introuvable.
 const placeholder = () => import('@/views/PlaceholderView.vue')
 
 const router = createRouter({
@@ -30,7 +30,7 @@ const router = createRouter({
     { path: '/orienter/resume', name: 'orient-summary', component: () => import('@/views/orient/FamilySummaryView.vue'), meta: { title: 'Résumé pour la famille', orientDone: true } },
     { path: '/orienter/assistant', name: 'orient-assistant', component: () => import('@/views/orient/AssistantView.vue'), meta: { title: 'Assistant d’orientation' } },
     { path: '/equipe', name: 'admin', component: () => import('@/views/AdminView.vue'), meta: { title: 'Back-office' } },
-    { path: '/:pathMatch(.*)*', name: 'not-found', component: placeholder, meta: { title: 'Page introuvable', art: 'signpost' } },
+    { path: '/:pathMatch(.*)*', name: 'not-found', component: placeholder, meta: { title: 'Page introuvable' } },
   ],
   // Un changement de filtres (même page, autre query) ne remonte pas en haut.
   scrollBehavior: (to, from, saved) => saved ?? (to.hash ? { el: to.hash } : to.path === from.path ? false : { top: 0 }),

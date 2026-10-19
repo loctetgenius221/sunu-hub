@@ -26,12 +26,12 @@ function addSkill() {
       <label for="skill" class="label">Compétences (jusqu'à 10)</label>
       <form class="flex gap-2" @submit.prevent="addSkill">
         <input id="skill" v-model="skill" class="field" placeholder="Ex. : Excel, prise de parole, Python" />
-        <button type="submit" class="shrink-0 border-2 border-ink bg-white px-4 font-semibold hover:bg-paper-2">Ajouter</button>
+        <button type="submit" class="shrink-0 rounded-control bg-paper-2 px-5 font-medium transition-colors hover:bg-[#e8e8ed]">Ajouter</button>
       </form>
       <ul v-if="extras.skills.length" class="mt-3 flex flex-wrap gap-2">
-        <li v-for="s in extras.skills" :key="s" class="inline-flex items-center gap-1 rounded-full border-2 border-ink bg-white py-1 pr-1.5 pl-3 text-sm font-semibold">
+        <li v-for="s in extras.skills" :key="s" class="inline-flex items-center gap-1 rounded-full bg-navy-soft py-1 pr-1.5 pl-3.5 text-[0.9375rem] font-medium text-navy">
           {{ s }}
-          <button type="button" class="grid h-6 w-6 place-items-center rounded-full hover:bg-paper-2" @click="extras.skills.splice(extras.skills.indexOf(s), 1)">
+          <button type="button" class="grid h-6 w-6 place-items-center rounded-full hover:bg-white/70" @click="extras.skills.splice(extras.skills.indexOf(s), 1)">
             <X :size="14" aria-hidden="true" />
             <span class="sr-only">Retirer {{ s }}</span>
           </button>

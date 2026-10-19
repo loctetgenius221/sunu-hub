@@ -2,67 +2,29 @@ import type { Profile, Stage } from '@/types'
 
 // Contenus de la page d'accueil (portail).
 
-export type BuildingId = 'lycee' | 'universite' | 'entreprise' | 'incubateur'
-
-export const buildings: Record<BuildingId, { label: string; offers: string }> = {
-  lycee: { label: 'Lycée', offers: 'Orientation et concours' },
-  universite: { label: 'Université', offers: 'Formations et bourses' },
-  entreprise: { label: 'Entreprise', offers: 'Stages et emplois juniors' },
-  incubateur: { label: 'Incubateur', offers: 'Financements et programmes' },
-}
-
-/** Le héros demande d'abord « Je suis… » : chaque stade allume un bâtiment du Hub. */
-export const stages: { id: Stage; label: string; building: BuildingId; promise: string }[] = [
+/** Le héros demande d'abord « Je suis… » : la promesse s'adapte au stade. */
+export const stages: { id: Stage; label: string; promise: string }[] = [
   {
     id: 'terminale',
     label: 'Élève de Terminale',
-    building: 'lycee',
     promise: 'Trois pistes de formation expliquées, et le statut officiel de chaque école.',
   },
   {
     id: 'bachelier',
     label: 'Nouveau bachelier',
-    building: 'universite',
     promise: 'Ta liste de vœux Campusen classée, avec un plan B et les rappels de dates.',
   },
   {
     id: 'etudiant',
     label: 'Étudiant',
-    building: 'entreprise',
     promise: 'Les stages, bourses et concours ouverts pour ta filière, triés par pertinence.',
   },
   {
     id: 'diplome',
     label: 'Jeune diplômé',
-    building: 'incubateur',
     promise: 'Premiers emplois, formations et financements, avec une alerte avant chaque date limite.',
   },
 ]
-
-export const doors = {
-  orienter: {
-    title: 'Orienter',
-    lead: 'Pour choisir sa voie après le bac, ou se réorienter.',
-    points: [
-      'Trois pistes expliquées selon ton profil',
-      "Le statut officiel de chaque école, avec la source",
-      'Ta liste de vœux Campusen, prête à saisir',
-      'Un résumé à montrer à ta famille',
-    ],
-    cta: { label: 'Commencer le questionnaire', to: '/orienter' },
-  },
-  opportunites: {
-    title: 'Opportunités',
-    lead: 'Pour trouver un stage, une bourse, un concours ou un premier emploi.',
-    points: [
-      'Un fil trié selon ton niveau et ta filière',
-      'Chaque offre vérifiée, avec son lien d’origine',
-      'Un rappel sept jours et un jour avant la date limite',
-      'Le suivi de tes candidatures au même endroit',
-    ],
-    cta: { label: 'Voir les opportunités', to: '/opportunites' },
-  },
-}
 
 /** Profil d'exemple pour l'aperçu du fil sur l'accueil. */
 export const demoProfile: Profile = {
@@ -99,4 +61,37 @@ export const commitments = [
   'Tout contenu sponsorisé est étiqueté comme tel.',
   'Tu n’es contacté que si tu l’as demandé ou accepté.',
   'Toute offre qui demande de l’argent au candidat est refusée.',
+]
+
+/** Étapes de « Comment ça marche » : une vraie séquence, d'où la numérotation. */
+export const howItWorks = [
+  {
+    id: 'profil',
+    title: 'Ton numéro, cinq questions.',
+    text: 'Pas d’e-mail ni de mot de passe : ton numéro de téléphone suffit. Cinq questions, et ton profil est prêt.',
+  },
+  {
+    id: 'fil',
+    title: 'Ton fil se remplit.',
+    text: 'Stages, bourses, concours et formations, triés selon ton niveau et ta filière. Chaque offre dit pourquoi elle est là.',
+  },
+  {
+    id: 'alerte',
+    title: 'On te prévient sur WhatsApp.',
+    text: 'Une alerte quand une offre te correspond, un rappel avant chaque date limite. Trois messages par semaine au plus.',
+  },
+  {
+    id: 'suivi',
+    title: 'Tu suis tes candidatures.',
+    text: 'Envoyée, entretien, réponse : tout est au même endroit, et la structure peut te répondre ici.',
+  },
+] as const
+
+export type HowStep = (typeof howItWorks)[number]['id']
+
+/** Chiffres de contexte (TDR §1 et §2.1), sourcés. */
+export const keyFigures = [
+  { value: '286 169', label: 'étudiants au Sénégal en 2024, dans le public et le privé', source: 'Le Soleil' },
+  { value: '75 000', label: 'nouveaux bacheliers à orienter chaque année, environ', source: 'Le Soleil, Campusen 2025' },
+  { value: '0 FCFA', label: 'pour les jeunes, sans exception', source: 'Engagement SUNU HŪB' },
 ]

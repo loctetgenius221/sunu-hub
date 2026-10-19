@@ -1,31 +1,30 @@
-import type { SceneKind } from '@/components/art/scenes'
-
 // Contenus pédagogiques du vérificateur (TDR §2.1 : trois statuts à ne pas confondre).
 
-export const officialStatuses: { term: string; who: string; meaning: string; art: SceneKind }[] = [
+/** `icon` : nom d'icône lucide, résolu par la vue. */
+export const officialStatuses: { term: string; who: string; meaning: string; icon: 'file' | 'shield' | 'award' | 'globe' }[] = [
   {
     term: 'Agrément',
     who: 'Concerne l’établissement',
     meaning: 'L’école a le droit d’ouvrir et d’accueillir des étudiants. Cela ne suffit pas pour délivrer des diplômes reconnus.',
-    art: 'sheets',
+    icon: 'file',
   },
   {
     term: 'Habilitation',
     who: 'Concerne l’établissement',
     meaning: 'Après évaluation de l’ANAQ-Sup, l’État autorise l’école à délivrer des diplômes. C’est le statut à vérifier en premier.',
-    art: 'shield',
+    icon: 'shield',
   },
   {
     term: 'Accréditation',
     who: 'Concerne une formation précise',
     meaning: 'La qualité d’un programme donné est reconnue. Une école habilitée peut avoir des formations accréditées et d’autres non.',
-    art: 'steps',
+    icon: 'award',
   },
   {
     term: 'Reconnaissance CAMES',
     who: 'Concerne une formation précise',
     meaning: 'Reconnaissance régionale du diplôme, utile pour poursuivre ses études ou travailler dans d’autres pays africains. Elle vaut accréditation.',
-    art: 'network',
+    icon: 'globe',
   },
 ]
 

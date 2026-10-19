@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import IsoArt from '@/components/art/IsoArt.vue'
+import { Award, FileText, Globe, ShieldCheck } from 'lucide-vue-next'
+import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import SchoolSearch from '@/components/school/SchoolSearch.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { cities } from '@/data/questions'
@@ -10,6 +11,7 @@ import { useToast } from '@/composables/useToast'
 import { requestSchoolCheck } from '@/services/api'
 
 // Vérificateur d'école (TDR O1) : recherche, explication des statuts, demande de vérification.
+const icons = { file: FileText, shield: ShieldCheck, award: Award, globe: Globe }
 const route = useRoute()
 const router = useRouter()
 const { show } = useToast()
@@ -37,66 +39,58 @@ async function submitRequest() {
 </script>
 
 <template>
-  <!-- Recherche -->
-  <section class="border-b-2 border-ink bg-orange">
-    <div class="wrap grid grid-cols-1 gap-10 py-12 sm:py-16 lg:grid-cols-12">
-      <div class="min-w-0 lg:col-span-5">
-        <h1 class="display text-[clamp(2.2rem,4vw,3.4rem)] text-ink">Vérifier une école</h1>
-        <p class="mt-4 max-w-md text-[1.15rem] font-medium">
-          Avant de payer une inscription, vérifie que l'établissement est habilité et que ta formation est accréditée. C'est
-          gratuit et sans inscription.
+  <!-- Recherche, posée sur une photo de diplômés -->
+  <section class="bg-white pt-3 pb-16 sm:pt-4">
+    <div class="wrap-wide relative overflow-hidden rounded-tile bg-navy-deep">
+      <ResponsiveImage name="ecoles" sizes="100vw" eager class="absolute inset-0" />
+      <div class="absolute inset-0 bg-linear-to-b from-[#04112a]/80 via-[#04112a]/45 to-[#04112a]/70" aria-hidden="true"></div>
+      <div class="relative mx-auto max-w-3xl px-6 pt-16 pb-24 text-center text-white sm:pt-24 sm:pb-32">
+        <h1 class="display text-[clamp(2.5rem,5.5vw,4.5rem)]">Vérifier une école</h1>
+        <p class="mx-auto mt-4 max-w-xl text-[clamp(1.0625rem,1.5vw,1.25rem)] text-white/85">
+          Avant de payer une inscription, vérifie que l'établissement est habilité et que ta formation est accréditée. Gratuit et
+          sans inscription.
         </p>
-        <IsoArt kind="shield" :scale="1.1" class="mt-10 hidden lg:block" />
       </div>
-      <div class="min-w-0 lg:col-span-6 lg:col-start-7">
-        <SchoolSearch :initial="initial" @query="syncQuery" @missing="prefill" />
-      </div>
+    </div>
+    <div class="wrap relative -mt-10 max-w-3xl">
+      <SchoolSearch :initial="initial" @query="syncQuery" @missing="prefill" />
     </div>
   </section>
 
   <!-- Les statuts -->
-  <section aria-labelledby="statuts" class="section bg-white">
+  <section aria-labelledby="statuts" class="section bg-paper-2">
     <div class="wrap">
-      <div class="grid grid-cols-1 gap-5 border-b-2 border-ink pb-8 lg:grid-cols-12">
-        <h2 id="statuts" class="h2 min-w-0 lg:col-span-7">Quatre mots à ne pas confondre.</h2>
-        <p class="min-w-0 text-ink-soft lg:col-span-4 lg:col-start-9 lg:self-end">
-          Sur chaque fiche, nous affichons ces statuts séparément, avec leur source et la date de vérification.
-        </p>
-      </div>
-      <ul>
-        <li
-          v-for="s in officialStatuses"
-          :key="s.term"
-          class="group relative grid grid-cols-1 items-center gap-4 border-b border-rule py-8 sm:grid-cols-[9rem_minmax(0,1fr)] lg:grid-cols-[11rem_minmax(0,16rem)_minmax(0,1fr)] lg:gap-10"
-        >
-          <span class="absolute inset-y-0 -left-4 w-1.5 origin-top scale-y-0 bg-orange transition-transform duration-300 group-hover:scale-y-100" aria-hidden="true"></span>
-          <IsoArt :kind="s.art" :scale="0.6" mono class="transition-transform duration-300 group-hover:-translate-y-2" />
-          <div class="min-w-0">
-            <h3 class="display text-[1.6rem] text-navy">{{ s.term }}</h3>
-            <p class="mt-1 text-sm font-semibold text-ink-soft">{{ s.who }}</p>
-          </div>
-          <p class="min-w-0 text-[1.05rem] sm:col-span-2 lg:col-span-1">{{ s.meaning }}</p>
+      <h2 id="statuts" class="h2 max-w-2xl">Quatre mots à ne pas confondre.</h2>
+      <p class="lead mt-5 max-w-2xl">Sur chaque fiche, nous affichons ces statuts séparément, avec leur source et la date de vérification.</p>
+      <ul class="mt-14 grid grid-cols-1 gap-x-10 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        <li v-for="s in officialStatuses" :key="s.term" class="min-w-0">
+          <span class="grid h-12 w-12 place-items-center rounded-2xl bg-white text-navy shadow-soft" aria-hidden="true">
+            <component :is="icons[s.icon]" :size="22" />
+          </span>
+          <h3 class="mt-5 text-[1.375rem] font-semibold tracking-[-0.02em]">{{ s.term }}</h3>
+          <p class="mt-1 text-[0.875rem] font-medium text-navy">{{ s.who }}</p>
+          <p class="mt-3 text-ink-soft">{{ s.meaning }}</p>
         </li>
       </ul>
     </div>
   </section>
 
   <!-- Réflexes + demande -->
-  <section class="section bg-paper-2">
+  <section class="section bg-white">
     <div class="wrap grid grid-cols-1 gap-14 lg:grid-cols-12">
       <div class="min-w-0 lg:col-span-6">
         <h2 class="h2">Avant de payer, quatre réflexes.</h2>
-        <ol class="mt-8 border-t-2 border-ink">
-          <li v-for="(r, i) in reflexes" :key="r" class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 border-b border-rule py-5">
-            <span class="display text-[1.6rem] leading-none text-navy tabular-nums">{{ i + 1 }}.</span>
-            <p>{{ r }}</p>
+        <ol class="mt-10 divide-y divide-rule">
+          <li v-for="(r, i) in reflexes" :key="r" class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-3 py-5 first:pt-0">
+            <span class="text-[1.375rem] leading-none font-semibold text-navy tabular-nums">{{ i + 1 }}</span>
+            <p class="text-[1.0625rem]">{{ r }}</p>
           </li>
         </ol>
       </div>
 
       <div id="demande" class="min-w-0 scroll-mt-24 lg:col-span-5 lg:col-start-8">
-        <div class="border-2 border-ink bg-white p-6 shadow-[10px_10px_0_var(--color-navy)] sm:p-8">
-          <h2 class="display text-[1.8rem] text-navy">Ton école n'est pas dans la liste&nbsp;?</h2>
+        <div class="rounded-tile bg-paper-2 p-7 sm:p-9">
+          <h2 class="text-[1.75rem] font-semibold tracking-[-0.025em]">Ton école n'est pas dans la liste&nbsp;?</h2>
           <p class="mt-3 text-ink-soft">Indique-la : notre équipe cherche sa décision officielle et publie la fiche avec sa source.</p>
           <form v-if="!sent" class="mt-6 space-y-5" @submit.prevent="submitRequest">
             <div>
@@ -112,7 +106,7 @@ async function submitRequest() {
             </div>
             <BaseButton type="submit" :disabled="sending || !request.name.trim()">{{ sending ? 'Envoi…' : 'Demander une vérification' }}</BaseButton>
           </form>
-          <p v-else class="mt-6 border-l-4 border-green pl-3 font-semibold" role="status">
+          <p v-else class="mt-6 rounded-control bg-mint px-4 py-3 font-medium text-green" role="status">
             Merci. Nous vérifions « {{ request.name }} » et publierons sa fiche dès que nous aurons une source officielle.
           </p>
         </div>

@@ -30,39 +30,40 @@ if (query.value) run(query.value)
 <template>
   <div>
     <form role="search" @submit.prevent="run(query)">
-      <label for="school-q" class="text-sm font-bold">Nom ou sigle de l'établissement</label>
+      <label for="school-q" class="sr-only">Nom ou sigle de l'établissement</label>
       <div
-        class="mt-2 flex border-2 border-ink bg-white shadow-[6px_6px_0_var(--color-ink)] focus-within:outline-3 focus-within:outline-offset-3 focus-within:outline-navy"
+        class="flex rounded-full bg-white shadow-lift ring-1 ring-black/5 transition focus-within:ring-4 focus-within:ring-navy/20"
       >
-        <Search :size="22" class="ml-4 shrink-0 self-center" aria-hidden="true" />
+        <Search :size="22" class="ml-6 shrink-0 self-center text-ink-soft" aria-hidden="true" />
         <input
           id="school-q"
           v-model="query"
           type="search"
           autocomplete="off"
           placeholder="Ex. : Institut Cap-Vert"
-          class="min-w-0 flex-1 bg-transparent px-3 py-4 text-lg outline-none placeholder:text-ink-soft"
+          class="min-w-0 flex-1 bg-transparent px-3 py-4.5 text-[1.125rem] outline-none placeholder:text-ink-soft"
         />
       </div>
     </form>
-    <p class="mt-4 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm">
+    <p class="mt-4 flex flex-wrap items-center gap-x-2 gap-y-2 px-2 text-[0.9375rem]">
       <span>Essaie&nbsp;:</span>
-      <button v-for="e in examples" :key="e" type="button" class="border-b-2 border-ink font-semibold hover:border-navy" @click="query = e">
+      <button v-for="e in examples" :key="e" type="button" class="rounded-full bg-white/70 px-3 py-1 font-medium text-ink ring-1 ring-black/5 backdrop-blur hover:bg-white" @click="query = e">
         {{ e }}
       </button>
     </p>
 
-    <div class="mt-8 space-y-5" aria-live="polite">
-      <p v-if="results?.length" class="text-sm font-semibold">
+    <div class="mt-8 space-y-4" aria-live="polite">
+      <h2 v-if="results" class="sr-only">Résultats de la recherche</h2>
+      <p v-if="results?.length" class="px-2 text-[0.9375rem] font-medium">
         {{ results.length }} {{ results.length > 1 ? 'établissements trouvés' : 'établissement trouvé' }}
       </p>
       <SchoolResult v-for="s in results ?? []" :key="s.id" :school="s" />
-      <div v-if="results && !results.length" class="border-2 border-dashed border-ink bg-white p-5">
-        <p class="font-semibold">Aucun établissement trouvé pour « {{ query }} ».</p>
-        <p class="mt-2">
+      <div v-if="results && !results.length" class="rounded-tile bg-white p-6 shadow-soft">
+        <p class="text-[1.125rem] font-semibold">Aucun établissement trouvé pour « {{ query }} ».</p>
+        <p class="mt-2 text-ink-soft">
           S'il n'est pas dans notre base, il n'a pas encore été vérifié : demande son arrêté d'habilitation avant de payer.
         </p>
-        <button type="button" class="mt-3 font-semibold underline decoration-navy decoration-2 underline-offset-4" @click="emit('missing', query)">
+        <button type="button" class="mt-4 font-medium text-navy hover:underline" @click="emit('missing', query)">
           Demander une vérification
         </button>
       </div>

@@ -23,12 +23,12 @@ function submit() {
 <template>
   <dialog
     ref="dialog"
-    class="m-auto w-[min(100%-2rem,34rem)] border-2 border-ink bg-white p-0 shadow-[10px_10px_0_var(--color-orange)] backdrop:bg-ink/50"
+    class="m-auto w-[min(100%-2rem,34rem)] rounded-tile bg-white p-0 shadow-lift backdrop:bg-ink/40 backdrop:backdrop-blur-sm"
     aria-labelledby="advisor-title"
     @close="open = false"
   >
     <form class="p-6 sm:p-8" @submit.prevent="submit">
-      <h2 id="advisor-title" class="display text-[1.8rem] text-navy">Parler à un conseiller</h2>
+      <h2 id="advisor-title" class="display text-[1.875rem]">Parler à un conseiller</h2>
       <p class="mt-2 text-sm text-ink-soft">Un conseiller d'orientation partenaire te répond sous 48 heures. C'est gratuit.</p>
       <label for="adv-msg" class="label mt-6">Ta question</label>
       <textarea id="adv-msg" v-model="message" rows="4" class="field" placeholder="Ex. : j'hésite entre l'informatique et la gestion…"></textarea>

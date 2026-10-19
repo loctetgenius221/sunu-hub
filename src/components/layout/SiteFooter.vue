@@ -1,41 +1,66 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import SunuLogo from '@/components/brand/SunuLogo.vue'
-import { nav, tagline } from '@/data/site'
+import { photos } from '@/data/photos'
+import { tagline } from '@/data/site'
+
+// Pied de page clair, en petites colonnes. Les crédits des photos provisoires y sont listés.
+const columns = [
+  {
+    title: 'Pour les jeunes',
+    links: [
+      { label: 'Opportunités', to: '/opportunites' },
+      { label: 'Orienter', to: '/orienter' },
+      { label: 'Vérifier une école', to: '/verifier-ecole' },
+      { label: 'Créer mon profil', to: '/inscription' },
+    ],
+  },
+  {
+    title: 'Pour les structures',
+    links: [
+      { label: 'Espace structures', to: '/structures' },
+      { label: 'Publier une opportunité', to: '/structures/publier' },
+    ],
+  },
+  {
+    title: 'SUNU HŪB',
+    links: [
+      { label: 'Nos engagements', to: '/#engagements' },
+      { label: 'Espace équipe', to: '/equipe' },
+    ],
+  },
+]
+const credits = Object.values(photos)
 </script>
 
 <template>
-  <footer class="print:hidden border-t-2 border-ink bg-navy text-white/75">
-    <!-- Liseré aux couleurs de la marque -->
-    <!-- <div class="flex h-1.5" aria-hidden="true">
-      <span class="flex-1 bg-green"></span><span class="flex-1 bg-white"></span><span class="flex-1 bg-orange"></span>
-    </div> -->
-
-    <div class="wrap grid grid-cols-1 gap-10 py-14 lg:grid-cols-12">
-      <div class="min-w-0 lg:col-span-6">
-        <SunuLogo tone="dark" size="lg" />
-        <p class="display mt-6 max-w-md text-[1.6rem] text-white">{{ tagline }}</p>
+  <footer class="border-t border-rule bg-paper-2 text-[0.8125rem] text-ink-soft print:hidden">
+    <div class="wrap grid grid-cols-1 gap-10 border-b border-rule py-12 md:grid-cols-[minmax(0,1.4fr)_repeat(3,minmax(0,1fr))]">
+      <div class="min-w-0">
+        <SunuLogo />
+        <p class="mt-4 max-w-xs text-[0.9375rem] leading-snug text-ink">{{ tagline }}</p>
+        <p class="mt-3">Dakar, Sénégal. Gratuit pour les jeunes, sans exception.</p>
       </div>
-
-      <nav aria-label="Pied de page" class="min-w-0 lg:col-span-3 lg:col-start-8">
-        <ul class="space-y-2.5 font-semibold">
-          <li v-for="item in nav" :key="item.to">
-            <RouterLink :to="item.to" class="hover:text-green">{{ item.label }}</RouterLink>
+      <nav v-for="c in columns" :key="c.title" :aria-label="c.title" class="min-w-0">
+        <h2 class="font-semibold text-ink">{{ c.title }}</h2>
+        <ul class="mt-3 space-y-2">
+          <li v-for="l in c.links" :key="l.to">
+            <RouterLink :to="l.to" class="transition-colors hover:text-ink hover:underline">{{ l.label }}</RouterLink>
           </li>
         </ul>
       </nav>
-
-      <div class="min-w-0 text-sm lg:col-span-2">
-        <p>Dakar, Sénégal</p>
-        <p class="mt-2">Gratuit pour les jeunes, sans exception.</p>
-      </div>
     </div>
 
-    <div class="border-t border-white/15">
-      <p class="wrap flex flex-wrap justify-between gap-2 py-5 text-sm">
-        <span>© 2026 SUNU HŪB</span>
-        <span>Maquette : données et photos provisoires. <RouterLink to="/equipe" class="underline underline-offset-2 hover:text-green">Espace équipe</RouterLink></span>
-      </p>
+    <div class="wrap flex flex-col gap-3 py-6 md:flex-row md:items-start md:justify-between">
+      <p>© 2026 SUNU HŪB. Maquette : les données présentées sont fictives.</p>
+      <details class="max-w-xl md:text-right">
+        <summary class="cursor-pointer list-none hover:text-ink">Photos provisoires : Unsplash</summary>
+        <p class="mt-2">
+          <template v-for="(p, i) in credits" :key="p.name">
+            <a :href="p.url" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ p.credit }}</a><template v-if="i < credits.length - 1">, </template>
+          </template>.
+        </p>
+      </details>
     </div>
   </footer>
 </template>

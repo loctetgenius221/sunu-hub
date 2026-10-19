@@ -3,6 +3,7 @@ import { useId } from 'vue'
 import type { Option } from '@/data/questions'
 
 // Choix unique (radio) ou multiple (checkbox) présenté en pastilles, cibles tactiles de 44 px.
+// Sélection : pastille marine pleine ; repos : pastille blanche cerclée d'un filet.
 const props = defineProps<{ options: Option[]; legend: string; multiple?: boolean; legendClass?: string }>()
 const model = defineModel<string | string[] | undefined>()
 const name = useId()
@@ -23,8 +24,8 @@ function toggle(v: string) {
       <label
         v-for="o in options"
         :key="o.value"
-        class="inline-flex min-h-11 cursor-pointer items-center rounded-full border-2 border-ink px-4 py-2 font-semibold transition-colors has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-orange"
-        :class="checked(o.value) ? 'bg-navy text-white' : 'bg-white hover:bg-paper-2'"
+        class="inline-flex min-h-11 cursor-pointer items-center rounded-full px-4 py-2 font-medium transition-[background-color,color,box-shadow] duration-200 select-none has-[:focus-visible]:outline-3 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-navy"
+        :class="checked(o.value) ? 'bg-navy text-white shadow-soft' : 'bg-white text-ink ring-1 ring-rule hover:ring-[#a1a1a6]'"
       >
         <input
           :type="multiple ? 'checkbox' : 'radio'"

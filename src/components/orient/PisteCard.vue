@@ -15,18 +15,18 @@ const p = computed(() => props.piste)
 const fieldLabel = computed(() => fields.find((f) => f.value === p.value.field)?.label)
 const inWishes = computed(() => store.state.wishes.includes(p.value.program.id))
 const fcfa = (n: number) => n.toLocaleString('fr-FR')
-const accessTone = { accessible: 'bg-mint', 'a-tenter': 'bg-white', difficile: 'bg-orange' }
+const accessTone = { accessible: 'bg-mint text-green', 'a-tenter': 'bg-navy-soft text-navy', difficile: 'bg-orange-soft text-orange' }
 </script>
 
 <template>
-  <article class="flex h-full flex-col border-2 border-ink bg-white" :class="wide ? 'border-dashed' : 'shadow-[8px_8px_0_var(--color-navy)]'">
-    <header class="flex items-start gap-4 border-b-2 border-ink p-5">
-      <span v-if="rank" class="display shrink-0 text-[2.4rem] leading-none text-navy tabular-nums">{{ rank }}</span>
+  <article class="flex h-full flex-col rounded-tile bg-white" :class="wide ? 'ring-1 ring-rule' : 'shadow-soft'">
+    <header class="flex items-start gap-4 border-b border-rule p-6">
+      <span v-if="rank" class="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-navy text-[1.125rem] font-semibold text-white tabular-nums">{{ rank }}</span>
       <div class="min-w-0">
-        <p class="text-xs font-bold text-navy">{{ fieldLabel }}</p>
-        <h3 class="display mt-1 text-[1.4rem] leading-tight">{{ p.program.name }}</h3>
+        <p class="text-xs font-semibold text-navy">{{ fieldLabel }}</p>
+        <h3 class="mt-1 text-[1.3125rem] leading-snug font-semibold tracking-[-0.02em]">{{ p.program.name }}</h3>
         <p class="mt-1 text-sm">
-          <RouterLink :to="{ name: 'school', params: { id: p.school.id } }" class="font-semibold underline decoration-navy decoration-2 underline-offset-2">
+          <RouterLink :to="{ name: 'school', params: { id: p.school.id } }" class="font-medium text-navy hover:underline">
             {{ p.school.name }}
           </RouterLink>
           <span class="text-ink-soft"> · {{ p.school.city }}</span>
@@ -34,13 +34,13 @@ const accessTone = { accessible: 'bg-mint', 'a-tenter': 'bg-white', difficile: '
       </div>
     </header>
 
-    <div class="flex flex-1 flex-col gap-4 p-5 text-sm">
-      <p v-if="p.reasons.length"><span class="font-bold">Pourquoi cette piste&nbsp;:</span> {{ p.reasons.join(', ') }}.</p>
+    <div class="flex flex-1 flex-col gap-4 p-6 text-[0.9375rem]">
+      <p v-if="p.reasons.length"><span class="font-semibold">Pourquoi cette piste&nbsp;:</span> {{ p.reasons.join(', ') }}.</p>
 
       <div class="flex flex-wrap gap-2">
         <SchoolStatusBadge :status="p.school.status" />
-        <span class="border-2 border-ink px-2.5 py-0.5 font-bold" :class="accessTone[p.access]">{{ accessLabels[p.access] }}</span>
-        <span v-if="p.program.cames" class="border border-ink px-2 py-0.5">CAMES</span>
+        <span class="rounded-full px-2.5 py-0.5 text-[0.8125rem] font-semibold" :class="accessTone[p.access]">{{ accessLabels[p.access] }}</span>
+        <span v-if="p.program.cames" class="rounded-full bg-paper-2 px-2.5 py-0.5 text-[0.8125rem] font-medium">CAMES</span>
       </div>
 
       <dl class="grid grid-cols-[7rem_minmax(0,1fr)] gap-x-3 gap-y-1.5">
@@ -54,7 +54,7 @@ const accessTone = { accessible: 'bg-mint', 'a-tenter': 'bg-white', difficile: '
         <dd>{{ p.outcomes.join(', ') }} <span class="text-ink-soft">(estimation)</span></dd>
       </dl>
 
-      <ul v-if="p.risks.length" class="space-y-1.5 border-l-4 border-orange pl-3">
+      <ul v-if="p.risks.length" class="space-y-1.5 rounded-control bg-orange-soft px-4 py-3 text-orange">
         <li v-for="r in p.risks" :key="r" class="flex items-start gap-2"><AlertTriangle :size="15" class="mt-0.5 shrink-0" aria-hidden="true" />{{ r }}</li>
       </ul>
 
@@ -62,8 +62,8 @@ const accessTone = { accessible: 'bg-mint', 'a-tenter': 'bg-white', difficile: '
         <span class="text-xs text-ink-soft">{{ p.campusen ? 'Vœu à saisir sur Campusen' : 'Privé : inscription auprès de l’école' }}</span>
         <button
           type="button"
-          class="inline-flex min-h-11 items-center gap-2 border-2 border-ink px-3 font-semibold"
-          :class="inWishes ? 'bg-navy text-white' : 'bg-white hover:bg-paper-2'"
+          class="inline-flex min-h-11 items-center gap-2 rounded-full px-4 font-medium transition-colors"
+          :class="inWishes ? 'bg-navy text-white' : 'bg-paper-2 hover:bg-[#e8e8ed]'"
           :aria-pressed="inWishes"
           @click="inWishes ? store.removeWish(p.program.id) : store.addWish(p.program.id)"
         >

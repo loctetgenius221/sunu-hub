@@ -1,27 +1,19 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router'
-import IsoArt from '@/components/art/IsoArt.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import TextLink from '@/components/ui/TextLink.vue'
 
-// Page d'attente pour les modules pas encore construits.
-const route = useRoute()
+// Page introuvable.
 </script>
 
 <template>
-  <section class="grid-paper section">
-    <div class="wrap grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
-      <div class="min-w-0 lg:col-span-6">
-        <h1 class="h2 text-[clamp(2rem,3.6vw,3.2rem)]!">{{ route.meta.title ?? 'Page introuvable' }}</h1>
-        <p class="mt-5 max-w-md text-lg text-ink-soft">
-          <template v-if="route.meta.phase">Ce module arrive à l'étape {{ route.meta.phase }} du chantier.</template>
-          <template v-else>Cette page n'existe pas, ou plus.</template>
-        </p>
-        <div class="mt-8">
-          <BaseButton to="/" variant="secondary">Retour à l'accueil</BaseButton>
-        </div>
-      </div>
-      <div class="flex min-w-0 justify-center lg:col-span-5 lg:col-start-8">
-        <IsoArt :key="route.fullPath" :kind="route.meta.art ?? 'signpost'" :scale="1.4" />
+  <section class="section bg-paper-2 text-center">
+    <div class="wrap">
+      <p class="text-[0.9375rem] font-medium text-navy">Erreur 404</p>
+      <h1 class="display mx-auto mt-3 max-w-2xl text-[clamp(2.5rem,5vw,4rem)]">Cette page n'existe pas, ou plus.</h1>
+      <p class="lead mx-auto mt-5 max-w-lg">Le lien est peut-être ancien. Repars de l'accueil ou cherche une opportunité.</p>
+      <div class="mt-10 flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
+        <BaseButton to="/">Retour à l'accueil</BaseButton>
+        <TextLink to="/opportunites">Voir les opportunités</TextLink>
       </div>
     </div>
   </section>

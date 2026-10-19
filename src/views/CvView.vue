@@ -23,13 +23,13 @@ const availability = { '': '', immediate: 'Disponible tout de suite', 'trois-moi
       <BaseButton @click="print"><Printer :size="18" aria-hidden="true" />Enregistrer en PDF</BaseButton>
     </div>
 
-    <article class="wrap mt-8 max-w-[52rem] border-2 border-ink bg-white p-8 sm:p-12 print:mt-0 print:border-0 print:p-0">
-      <header class="flex flex-wrap items-start justify-between gap-6 border-b-2 border-ink pb-6">
+    <article class="wrap mt-8 max-w-[52rem] rounded-tile bg-white p-8 shadow-soft sm:p-14 print:mt-0 print:rounded-none print:p-0 print:shadow-none">
+      <header class="flex flex-wrap items-start justify-between gap-6 border-b border-rule pb-8">
         <div class="min-w-0">
-          <h1 class="display text-[2.6rem] text-navy">{{ s.firstName }}</h1>
-          <p class="mt-1 text-lg">{{ q('track') }} · {{ q('field') }}</p>
+          <h1 class="display text-[2.75rem]">{{ s.firstName }}</h1>
+          <p class="mt-1 text-[1.125rem] text-ink-soft">{{ q('track') }} · {{ q('field') }}</p>
         </div>
-        <div class="text-sm sm:text-right">
+        <div class="text-[0.9375rem] sm:text-right">
           <p class="whitespace-nowrap">{{ phone }}</p>
           <p>{{ s.answers.city }}</p>
           <p v-if="s.extras.availability" class="mt-1 font-semibold">{{ availability[s.extras.availability] }}</p>
@@ -37,27 +37,27 @@ const availability = { '': '', immediate: 'Disponible tout de suite', 'trois-moi
       </header>
 
       <section class="grid grid-cols-1 gap-2 border-b border-rule py-6 sm:grid-cols-[10rem_minmax(0,1fr)]">
-        <h2 class="font-bold text-navy">Objectif</h2>
+        <h2 class="font-semibold text-navy">Objectif</h2>
         <p>Recherche : {{ q('goal').toLowerCase() }}.</p>
       </section>
       <section class="grid grid-cols-1 gap-2 border-b border-rule py-6 sm:grid-cols-[10rem_minmax(0,1fr)]">
-        <h2 class="font-bold text-navy">Formation</h2>
+        <h2 class="font-semibold text-navy">Formation</h2>
         <div>
           <p class="font-semibold">{{ s.extras.school || 'Établissement à préciser' }}</p>
           <p class="text-ink-soft">{{ q('stage') }} · {{ q('track') }}</p>
         </div>
       </section>
       <section class="grid grid-cols-1 gap-2 py-6 sm:grid-cols-[10rem_minmax(0,1fr)]">
-        <h2 class="font-bold text-navy">Compétences</h2>
+        <h2 class="font-semibold text-navy">Compétences</h2>
         <ul v-if="s.extras.skills.length" class="flex flex-wrap gap-2">
-          <li v-for="k in s.extras.skills" :key="k" class="border border-ink px-2.5 py-0.5 text-sm">{{ k }}</li>
+          <li v-for="k in s.extras.skills" :key="k" class="rounded-full bg-paper-2 px-3 py-0.5 text-[0.9375rem]">{{ k }}</li>
         </ul>
         <p v-else class="text-ink-soft">À compléter depuis ton profil.</p>
       </section>
 
-      <footer class="mt-6 flex items-center justify-between gap-4 border-t-2 border-ink pt-4 text-xs text-ink-soft">
+      <footer class="mt-6 flex items-center justify-between gap-4 border-t border-rule pt-5 text-xs text-ink-soft">
         <span>CV généré avec</span>
-        <SunuLogo class="scale-75 origin-right" />
+        <SunuLogo size="sm" />
       </footer>
     </article>
   </div>

@@ -2,7 +2,6 @@
 import { computed, onMounted, ref } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { BadgeCheck, BellRing, ExternalLink, Flag, MapPin, ThumbsDown, ThumbsUp } from 'lucide-vue-next'
-import IsoArt from '@/components/art/IsoArt.vue'
 import ApplicationTracker from '@/components/opportunity/ApplicationTracker.vue'
 import ReportDialog from '@/components/opportunity/ReportDialog.vue'
 import SaveButton from '@/components/opportunity/SaveButton.vue'
@@ -54,7 +53,7 @@ async function report(reason: string) {
 
 <template>
   <div v-if="item === undefined" class="wrap py-20" aria-busy="true">
-    <div class="h-64 animate-pulse border-2 border-dashed border-rule"></div>
+    <div class="h-64 animate-pulse rounded-tile bg-paper-2"></div>
   </div>
 
   <section v-else-if="item === null" class="wrap py-20">
@@ -64,26 +63,26 @@ async function report(reason: string) {
   </section>
 
   <template v-else>
-    <section class="grid-paper border-b-2 border-ink">
+    <section class="bg-white">
       <div class="wrap py-10 sm:py-14">
         <nav aria-label="Fil d'Ariane" class="text-sm">
-          <RouterLink to="/opportunites" class="font-semibold underline decoration-navy decoration-2 underline-offset-4">Opportunités</RouterLink>
+          <RouterLink to="/opportunites" class="font-medium text-navy hover:underline">Opportunités</RouterLink>
           <span class="mx-2 text-ink-soft">/</span><span class="text-ink-soft">{{ opportunityTypes[item.type] }}</span>
         </nav>
 
-        <p v-if="item.hidden" class="mt-6 border-2 border-dashed border-ink bg-white px-4 py-3 font-semibold" role="alert">
+        <p v-if="item.hidden" class="mt-6 rounded-control bg-orange-soft px-4 py-3 font-medium text-orange" role="alert">
           Cette offre est masquée : elle a été signalée et attend une vérification.
         </p>
 
         <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12">
           <div class="min-w-0 lg:col-span-8">
             <div class="flex flex-wrap items-center gap-2">
-              <span class="text-sm font-bold text-navy">{{ opportunityTypes[item.type] }}</span>
+              <span class="text-[0.9375rem] font-semibold text-navy">{{ opportunityTypes[item.type] }}</span>
               <VerificationBadge :status="item.status" />
             </div>
-            <h1 class="display mt-3 text-[clamp(2rem,3.6vw,3.2rem)] text-navy">{{ item.title }}</h1>
+            <h1 class="display mt-3 text-[clamp(2.25rem,4.4vw,3.75rem)] text-balance">{{ item.title }}</h1>
             <p class="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-ink-soft">
-              <span class="flex items-center gap-1.5 font-semibold text-ink">
+              <span class="flex items-center gap-1.5 font-medium text-ink">
                 {{ item.structure.name }}
                 <BadgeCheck v-if="item.structure.verified" :size="18" class="text-navy" aria-label="Structure vérifiée" />
               </span>
@@ -93,48 +92,49 @@ async function report(reason: string) {
 
           <!-- Date limite -->
           <div class="min-w-0 lg:col-span-4">
-            <div class="border-2 border-ink p-5" :class="left <= 7 ? 'bg-orange' : 'bg-white'">
-              <p class="text-sm font-semibold">Date limite</p>
-              <p class="display mt-1 text-[2.6rem] leading-none tabular-nums">{{ left === 0 ? "Aujourd'hui" : `J-${left}` }}</p>
-              <p class="mt-1 first-letter:uppercase">{{ fullDate }}</p>
+            <div class="rounded-tile p-6" :class="left <= 7 ? 'bg-orange-soft text-orange' : 'bg-paper-2'">
+              <p class="text-[0.9375rem] font-medium">Date limite</p>
+              <p class="display mt-1 text-[2.75rem] leading-none tabular-nums">{{ left === 0 ? "Aujourd'hui" : `J-${left}` }}</p>
+              <p class="mt-2 first-letter:uppercase" :class="left > 7 && 'text-ink-soft'">{{ fullDate }}</p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <div class="wrap grid grid-cols-1 gap-12 py-12 lg:grid-cols-12 lg:py-16">
-      <div class="min-w-0 space-y-12 lg:col-span-7">
-        <section aria-labelledby="h-resume">
-          <h2 id="h-resume" class="border-b-2 border-ink pb-3 text-lg font-bold">En bref</h2>
-          <p class="mt-5 text-[1.15rem]">{{ item.summary }}</p>
+    <div class="bg-paper-2">
+    <div class="wrap grid grid-cols-1 gap-8 py-12 lg:grid-cols-12 lg:py-16">
+      <div class="min-w-0 space-y-6 lg:col-span-7">
+        <section aria-labelledby="h-resume" class="rounded-tile bg-white p-7 shadow-soft sm:p-9">
+          <h2 id="h-resume" class="text-[1.375rem] font-semibold tracking-[-0.02em]">En bref</h2>
+          <p class="mt-3 text-[1.1875rem] leading-relaxed">{{ item.summary }}</p>
         </section>
 
-        <section aria-labelledby="h-conditions">
-          <h2 id="h-conditions" class="border-b-2 border-ink pb-3 text-lg font-bold">Conditions</h2>
-          <ul>
-            <li v-for="c in item.conditions" :key="c" class="border-b border-rule py-3">{{ c }}</li>
-            <li class="flex items-center gap-2 border-b border-rule py-3 font-semibold">
-              <span class="h-3.5 w-3.5 rounded-full border-2 border-ink bg-green" aria-hidden="true"></span>
+        <section aria-labelledby="h-conditions" class="rounded-tile bg-white p-7 shadow-soft sm:p-9">
+          <h2 id="h-conditions" class="text-[1.375rem] font-semibold tracking-[-0.02em]">Conditions</h2>
+          <ul class="mt-2 divide-y divide-rule">
+            <li v-for="c in item.conditions" :key="c" class="py-3.5">{{ c }}</li>
+            <li class="flex items-center gap-2 py-3.5 font-medium text-green">
+              <BadgeCheck :size="18" aria-hidden="true" />
               Gratuit pour le candidat
             </li>
           </ul>
           <p class="mt-3 text-sm text-ink-soft">Une offre qui te demande de l'argent n'est jamais publiée sur SUNU HŪB. Si c'est le cas, signale-la.</p>
         </section>
 
-        <section aria-labelledby="h-candidature">
-          <h2 id="h-candidature" class="border-b-2 border-ink pb-3 text-lg font-bold">Ma candidature</h2>
-          <p class="mt-5 mb-4 text-ink-soft">Tu candidates directement auprès de la structure. Ensuite, suis l'avancement ici.</p>
+        <section aria-labelledby="h-candidature" class="rounded-tile bg-white p-7 shadow-soft sm:p-9">
+          <h2 id="h-candidature" class="text-[1.375rem] font-semibold tracking-[-0.02em]">Ma candidature</h2>
+          <p class="mt-2 mb-5 text-ink-soft">Tu candidates directement auprès de la structure. Ensuite, suis l'avancement ici.</p>
           <ApplicationTracker :id="item.id" />
         </section>
 
         <!-- Source (obligatoire) -->
-        <section aria-labelledby="h-source" class="border-2 border-ink bg-paper-2 p-5">
-          <h2 id="h-source" class="text-sm font-bold">Source</h2>
+        <section aria-labelledby="h-source" class="px-2">
+          <h2 id="h-source" class="text-[0.9375rem] font-semibold">Source</h2>
           <p class="mt-2 text-sm">
             {{ item.sourceName }}, collectée le {{ formatDate(item.collectedAt) }}. {{ verification[item.status].hint }}.
           </p>
-          <a :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" class="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold underline decoration-navy decoration-2 underline-offset-4">
+          <a :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" class="mt-2 inline-flex items-center gap-1.5 text-[0.9375rem] font-medium text-navy hover:underline">
             Voir l'annonce d'origine<ExternalLink :size="14" aria-hidden="true" />
           </a>
         </section>
@@ -142,31 +142,31 @@ async function report(reason: string) {
 
       <!-- Actions -->
       <aside class="min-w-0 lg:col-span-4 lg:col-start-9">
-        <div class="space-y-8 lg:sticky lg:top-24">
-          <div class="border-2 border-ink bg-white p-6 shadow-[8px_8px_0_var(--color-navy)]">
+        <div class="space-y-6 lg:sticky lg:top-24">
+          <div class="rounded-tile bg-white p-6 shadow-soft">
             <BaseButton :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" block>Candidater sur le site d'origine</BaseButton>
-            <SaveButton :id="item.id" :title="item.title" class="mt-4 w-full justify-center" />
+            <SaveButton :id="item.id" :title="item.title" class="mt-3 w-full justify-center" />
             <p v-if="activity.isSaved(item.id) && reminders(item.deadline).length" class="mt-3 flex items-start gap-2 text-sm text-ink-soft">
               <BellRing :size="16" class="mt-0.5 shrink-0 text-navy" aria-hidden="true" />
               Rappel le {{ reminders(item.deadline).map((r) => formatDate(r.date)).join(' et le ') }}.
             </p>
           </div>
 
-          <div v-if="scored" class="border-2 border-ink bg-white p-6">
-            <p class="flex items-baseline justify-between font-semibold">
-              Pour ton profil <span class="display text-[2rem] text-navy tabular-nums">{{ scored.score }}/100</span>
+          <div v-if="scored" class="rounded-tile bg-white p-6 shadow-soft">
+            <p class="flex items-baseline justify-between font-medium">
+              Pertinence pour toi <span class="text-[2rem] font-semibold tracking-[-0.03em] text-navy tabular-nums">{{ scored.score }}<span class="text-[1rem] text-ink-soft"> / 100</span></span>
             </p>
             <p v-if="scored.reasons.length" class="mt-2 text-sm text-ink-soft">Pourquoi : {{ scored.reasons.join(', ') }}.</p>
 
-            <div class="mt-5 border-t-2 border-ink pt-4">
-              <p class="text-sm font-semibold">Cette offre te semble-t-elle pertinente&nbsp;?</p>
+            <div class="mt-5 border-t border-rule pt-5">
+              <p class="text-[0.9375rem] font-medium">Cette offre te semble-t-elle pertinente&nbsp;?</p>
               <div class="mt-3 flex gap-2">
                 <button
                   v-for="opt in [{ v: true, label: 'Pertinente', icon: ThumbsUp }, { v: false, label: 'Pas pertinente', icon: ThumbsDown }]"
                   :key="opt.label"
                   type="button"
-                  class="inline-flex min-h-11 flex-1 items-center justify-center gap-2 border-2 border-ink px-3 text-sm font-semibold"
-                  :class="feedback === opt.v ? 'bg-navy text-white' : 'bg-white hover:bg-paper-2'"
+                  class="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full px-3 text-[0.9375rem] font-medium transition-colors"
+                  :class="feedback === opt.v ? 'bg-navy text-white' : 'bg-paper-2 hover:bg-[#e8e8ed]'"
                   :aria-pressed="feedback === opt.v"
                   @click="rate(opt.v)"
                 >
@@ -176,11 +176,10 @@ async function report(reason: string) {
             </div>
           </div>
 
-          <div class="flex items-center justify-between gap-4">
-            <IsoArt kind="sheets" :scale="0.55" />
+          <div class="px-2">
             <button
               type="button"
-              class="inline-flex items-center gap-2 text-sm font-semibold underline decoration-orange decoration-2 underline-offset-4 disabled:no-underline disabled:text-ink-soft"
+              class="inline-flex items-center gap-2 text-[0.9375rem] font-medium text-ink-soft transition-colors hover:text-orange disabled:hover:text-ink-soft"
               :disabled="reported"
               @click="reporting = true"
             >
@@ -189,6 +188,7 @@ async function report(reason: string) {
           </div>
         </div>
       </aside>
+    </div>
     </div>
 
     <ReportDialog v-model="reporting" @submit="report" />

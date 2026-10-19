@@ -1,6 +1,6 @@
 # SUNU HŪB : front-end du MVP
 
-Maquette fonctionnelle de la plateforme décrite dans `TDR – MVP SUNU HŪB.md`, avec la charte de `SUNU HŪB- Projet.pdf` et la direction artistique de `DIRECTION-ARTISTIQUE-PROPOSITION-1.md`. Le plan de construction et l'état de chaque étape sont dans [ROADMAP.md](ROADMAP.md).
+Maquette fonctionnelle de la plateforme décrite dans `TDR – MVP SUNU HŪB.md`, avec la charte et le logo de `SUNU HŪB- Projet.pdf`, en direction artistique « Institutionnel premium » (décrite dans ROADMAP.md). Le plan de construction et l'état de chaque étape sont dans [ROADMAP.md](ROADMAP.md).
 
 Stack : Vue 3, Vite, TypeScript, Tailwind CSS v4, Pinia, Vue Router, `motion` (animations), `lucide-vue-next` (icônes), `vite-plugin-pwa`.
 
@@ -41,13 +41,12 @@ npm run preview      # sert le build, service worker actif
 src/
   assets/main.css     tokens de la charte (couleurs, polices) et utilitaires (.display, .h2, .wrap, .field…)
   components/
-    art/              illustrations isométriques générées en SVG (iso.ts, scenes.ts, IsoArt, HubScene)
     brand/            logo (monogramme extrait du PDF) et logotype
-    ui/               boutons, liens, pastilles, choix multiples, en-têtes de section
+    ui/               boutons, liens, photos responsives, choix multiples, en-têtes de section
     layout/           en-tête, pied de page, bande défilante, messages de confirmation
     home/ opportunity/ school/ profile/ signup/ orient/ admin/   composants par domaine
-  composables/        animations (useReveal, usePointerTilt, useCountUp), messages (useToast)
-  data/               données fictives et contenus éditoriaux (aucun texte en dur dans les composants)
+  composables/        mouvement (mouvement réduit, compteur animé), messages (useToast)
+  data/               données fictives, contenus éditoriaux et photos (aucun texte en dur dans les composants)
   services/           accès aux données, moteurs de règles (matching, orientation), filtres, modération, assistant
   stores/             profil, activité, orientation, structure (Pinia, persistés sur l'appareil)
   views/              une vue par route
@@ -62,6 +61,6 @@ src/
 ## Qualité vérifiée
 
 - Rendu vérifié de 360 à 1440 px, sans débordement horizontal.
-- Audit axe-core sur les 20 pages principales : aucune violation hors des outils de développement.
-- Poids d'une page : environ 110 Ko pour le site, plus 165 à 200 Ko de polices à la première visite (mises en cache ensuite).
+- Audit axe-core sur 25 pages : aucune violation hors des outils de développement.
+- Poids d'une page (production, mobile) : environ 110 Ko de site, 148 Ko de polices à la première visite (mises en cache ensuite), et de 0 à 200 Ko de photos selon la page (200 Ko sur l'accueil).
 - Hors ligne : après une première visite, les fiches d'école et d'offre s'affichent sans connexion.

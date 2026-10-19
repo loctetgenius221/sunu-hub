@@ -46,19 +46,19 @@ function exportCsv() {
   </section>
 
   <template v-else>
-    <section class="grid-paper border-b-2 border-ink">
+    <section class="grid-paper border-b border-rule">
       <div class="wrap py-10 sm:py-14">
         <nav aria-label="Fil d'Ariane" class="text-sm">
-          <RouterLink :to="{ name: 'structure-dashboard' }" class="font-semibold underline decoration-navy decoration-2 underline-offset-4">Mon espace</RouterLink>
+          <RouterLink :to="{ name: 'structure-dashboard' }" class="font-semibold text-navy hover:underline">Mon espace</RouterLink>
           <span class="mx-2 text-ink-soft">/</span><span class="text-ink-soft">Candidatures</span>
         </nav>
         <div class="mt-5 flex flex-wrap items-end justify-between gap-6">
           <div class="min-w-0">
-            <p class="text-sm font-bold text-navy">{{ opportunityTypes[offer.type] }}</p>
-            <h1 class="display mt-1 text-[clamp(1.9rem,3.4vw,2.8rem)] text-navy">{{ offer.title }}</h1>
+            <p class="text-sm font-semibold text-navy">{{ opportunityTypes[offer.type] }}</p>
+            <h1 class="display mt-1 text-[clamp(1.9rem,3.4vw,2.8rem)]">{{ offer.title }}</h1>
             <p class="mt-2 text-ink-soft">Clôture le {{ formatDate(offer.deadline) }} · {{ candidates.length }} candidatures</p>
           </div>
-          <BaseButton variant="secondary" :disabled="!candidates.length" @click="exportCsv"><Download :size="18" aria-hidden="true" />Exporter en CSV</BaseButton>
+          <BaseButton variant="light" class="shadow-soft" :disabled="!candidates.length" @click="exportCsv"><Download :size="18" aria-hidden="true" />Exporter en CSV</BaseButton>
         </div>
       </div>
     </section>
@@ -69,23 +69,23 @@ function exportCsv() {
         d'écarter un profil débutant.
       </p>
 
-      <p v-if="!candidates.length" class="mt-8 border-2 border-dashed border-ink p-6">Aucune candidature pour l'instant.</p>
+      <p v-if="!candidates.length" class="mt-8 rounded-tile bg-paper-2 p-6">Aucune candidature pour l'instant.</p>
 
-      <ol v-else class="mt-6 border-t-2 border-ink">
+      <ol v-else class="mt-6 border-t border-rule">
         <li
           v-for="(c, i) in candidates"
           :key="c.id"
           class="grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-b border-rule py-6 md:grid-cols-[3rem_minmax(0,1fr)_7rem_13rem] md:items-center"
         >
-          <span class="display text-[1.6rem] leading-none text-navy tabular-nums">{{ i + 1 }}</span>
+          <span class="display text-[1.6rem] leading-none tabular-nums">{{ i + 1 }}</span>
           <div class="min-w-0">
-            <p class="font-bold">{{ c.firstName }} {{ c.initial }} <span class="font-normal text-ink-soft">· {{ c.city }}</span></p>
+            <p class="font-semibold">{{ c.firstName }} {{ c.initial }} <span class="font-normal text-ink-soft">· {{ c.city }}</span></p>
             <p class="text-sm">{{ levelLabel[c.level] }} · {{ fieldLabel(c.field) }}</p>
             <p class="mt-1 text-sm text-ink-soft italic">« {{ c.motivation }} »</p>
           </div>
           <div class="col-start-2 flex items-center gap-2 md:col-start-auto md:block">
-            <span class="display text-[1.6rem] text-navy tabular-nums">{{ c.score }}</span><span class="text-sm text-ink-soft">/100</span>
-            <div class="h-1.5 w-20 border border-ink bg-paper-2 md:mt-1" aria-hidden="true"><div class="h-full bg-navy" :style="{ width: `${c.score}%` }"></div></div>
+            <span class="display text-[1.6rem] tabular-nums">{{ c.score }}</span><span class="text-sm text-ink-soft">/100</span>
+            <div class="h-1 w-20 overflow-hidden rounded-full bg-paper-2 md:mt-1" aria-hidden="true"><div class="h-full bg-navy" :style="{ width: `${c.score}%` }"></div></div>
           </div>
           <div class="col-start-2 min-w-0 md:col-start-auto">
             <label :for="`st-${c.id}`" class="sr-only">Statut de la candidature de {{ c.firstName }}</label>

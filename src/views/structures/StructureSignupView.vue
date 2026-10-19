@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import IsoArt from '@/components/art/IsoArt.vue'
+import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { structureKinds } from '@/data/labels'
 import { cities } from '@/data/questions'
@@ -49,13 +49,13 @@ function submit() {
   <section class="grid-paper">
     <div class="wrap grid grid-cols-1 items-start gap-12 py-12 sm:py-16 lg:grid-cols-12">
       <div class="min-w-0 lg:col-span-7">
-        <h1 class="display text-[clamp(2rem,3.6vw,3rem)] text-navy">Créer un compte structure</h1>
+        <h1 class="display text-[clamp(2rem,3.6vw,3rem)]">Créer un compte structure</h1>
         <p class="mt-4 max-w-xl text-[1.1rem] text-ink-soft">
           Chaque compte est vérifié par notre équipe avant de pouvoir publier. C'est ce qui permet aux jeunes de faire confiance aux
           offres.
         </p>
 
-        <form novalidate class="mt-10 border-2 border-ink bg-white p-6 shadow-[10px_10px_0_var(--color-navy)] sm:p-9" @submit.prevent="submit">
+        <form novalidate class="mt-10 rounded-tile bg-white p-6 shadow-soft sm:p-9" @submit.prevent="submit">
           <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
             <div class="min-w-0 sm:col-span-2">
               <label for="s-name" class="label">Nom de la structure</label>
@@ -81,8 +81,8 @@ function submit() {
             </div>
           </div>
 
-          <fieldset class="mt-8 border-t-2 border-ink pt-6">
-            <legend class="pr-3 font-bold">Preuve d'appartenance (l'un ou l'autre)</legend>
+          <fieldset class="mt-8 border-t border-rule pt-6">
+            <legend class="pr-3 font-semibold">Preuve d'appartenance (l'un ou l'autre)</legend>
             <div class="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2">
               <div class="min-w-0">
                 <label for="s-email" class="label">E-mail professionnel</label>
@@ -103,7 +103,7 @@ function submit() {
             <span>Je m'engage à ne publier que des offres gratuites pour les candidats et à ne contacter les jeunes qu'avec leur accord.</span>
           </label>
 
-          <p v-if="touched && !valid" class="mt-5 border-l-4 border-orange pl-3 text-sm font-semibold" role="alert">
+          <p v-if="touched && !valid" class="mt-5 rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">
             Il manque une information. Vérifiez les champs signalés.
           </p>
           <div class="mt-8"><BaseButton type="submit">Envoyer ma demande</BaseButton></div>
@@ -111,11 +111,13 @@ function submit() {
       </div>
 
       <aside class="min-w-0 lg:col-span-4 lg:col-start-9 lg:pt-28">
-        <IsoArt kind="shield" :scale="1" />
-        <ol class="mt-8 space-y-4 border-t-2 border-ink pt-5 text-sm">
-          <li><span class="font-bold">1.</span> Vous envoyez la demande.</li>
-          <li><span class="font-bold">2.</span> Nous vérifions l'e-mail ou le NINEA, sous 48 h ouvrées.</li>
-          <li><span class="font-bold">3.</span> Vous publiez votre première offre.</li>
+        <div class="hidden aspect-[4/3] overflow-hidden rounded-tile lg:block">
+          <ResponsiveImage name="structures" sizes="30vw" />
+        </div>
+        <ol class="mt-8 space-y-4 text-[0.9375rem]">
+          <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">1</span> Vous envoyez la demande.</li>
+          <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">2</span> Nous vérifions l'e-mail ou le NINEA, sous 48 h ouvrées.</li>
+          <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">3</span> Vous publiez votre première offre.</li>
         </ol>
       </aside>
     </div>

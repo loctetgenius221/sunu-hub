@@ -22,12 +22,12 @@ function submit() {
 
 <template>
   <form novalidate @submit.prevent="submit">
-    <h1 class="display text-[clamp(1.8rem,3vw,2.4rem)] text-navy">Ton numéro de téléphone</h1>
-    <p class="mt-3 text-ink-soft">C'est ton identifiant. Pas besoin d'e-mail ni de mot de passe.</p>
+    <h1 class="display text-[clamp(1.875rem,3.4vw,2.5rem)]">Ton numéro de téléphone</h1>
+    <p class="mt-3 text-[1.0625rem] text-ink-soft">C'est ton identifiant. Pas besoin d'e-mail ni de mot de passe.</p>
 
     <label for="phone" class="label mt-8">Numéro de mobile</label>
     <div class="flex">
-      <span class="grid place-items-center border-2 border-r-0 border-ink bg-paper-2 px-3 font-semibold">+221</span>
+      <span class="grid place-items-center rounded-l-control border border-r-0 border-rule bg-paper-2 px-4 font-medium">+221</span>
       <input
         id="phone"
         v-model="phone"
@@ -35,12 +35,12 @@ function submit() {
         inputmode="numeric"
         autocomplete="tel-national"
         placeholder="77 123 45 67"
-        class="field tabular-nums"
+        class="field rounded-l-none! tabular-nums"
         :aria-invalid="touched && !valid"
         aria-describedby="phone-help"
       />
     </div>
-    <p id="phone-help" class="mt-2 text-sm" :class="touched && !valid ? 'font-semibold text-ink' : 'text-ink-soft'">
+    <p id="phone-help" class="mt-2 text-sm" :class="touched && !valid ? 'font-medium text-orange' : 'text-ink-soft'">
       {{ touched && !valid ? 'Vérifie ton numéro : 9 chiffres, commençant par 70, 75, 76, 77 ou 78.' : 'Nous ne le partageons avec personne.' }}
     </p>
 

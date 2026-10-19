@@ -1,27 +1,39 @@
 @import 'tailwindcss';
 
 /*
- * Charte SUNU HŪB (extraite de « SUNU HŪB - Projet.pdf ») appliquée à la
- * direction artistique « Éditorial institutionnel isométrique ».
- *  - navy   : structure (titres, liens, sections d'action, pied de page)
- *  - orange : action et chaleur (bouton principal, bande défilante)
- *  - green  : signal (vérifié, pastilles, accents sur fond marine)
+ * Direction artistique « Institutionnel premium » (refonte d'octobre 2026).
+ * Clarté, photographie, grands titres serrés, beaucoup d'air.
+ *  - navy        : couleur institutionnelle (boutons principaux, liens, sections sombres)
+ *  - orange      : accent rare, réservé à l'urgence (date limite proche, alerte)
+ *  - green/mint  : réservés au statut « vérifié »
+ *  - neutres     : blanc, porcelaine, encre et gris
+ * Montserrat ne sert qu'au logotype (charte du PDF).
  */
 @theme {
-  --font-display: 'Newsreader', Georgia, serif;
-  --font-sans: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --font-sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-display: var(--font-sans);
+  --font-brand: 'Montserrat', 'Instrument Sans', sans-serif;
 
   --color-navy: #0c3470;
-  --color-navy-deep: #0a2a5c;
-  --color-orange: #ff6b00;
-  --color-green: #00ff57;
-  --color-mint: #81ffac;
+  --color-navy-deep: #071e44;
+  --color-navy-soft: #e9eef7;
+  --color-orange: #c2410c; /* foncé pour le contraste du texte (5,2:1) ; la barre du logo garde #ff6b00 */
+  --color-orange-soft: #fff1e6;
+  --color-green: #0b6b33; /* 5,9:1 sur menthe, 6,6:1 sur blanc */
+  --color-mint: #e4f5ea;
 
   --color-paper: #ffffff;
-  --color-paper-2: #f5faf9;
-  --color-ink: #141414;
-  --color-ink-soft: #565b66;
-  --color-rule: #dcdde0;
+  --color-paper-2: #f5f5f7;
+  --color-ink: #1d1d1f;
+  --color-ink-soft: #6e6e73;
+  --color-rule: #d2d2d7;
+
+  --radius-tile: 1.75rem;
+  --radius-card: 1.25rem;
+  --radius-control: 0.75rem;
+
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px rgb(0 0 0 / 0.06);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.04), 0 18px 40px rgb(7 30 68 / 0.12);
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -34,16 +46,23 @@
 
   body {
     font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.65;
+    font-size: 1.0625rem;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
     color: var(--color-ink);
     background: var(--color-paper);
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   :focus-visible {
-    outline: 3px solid var(--color-orange);
+    outline: 3px solid var(--color-navy);
     outline-offset: 3px;
+    border-radius: 0.375rem;
+  }
+
+  ::selection {
+    background: var(--color-navy-soft);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -61,80 +80,99 @@
 }
 
 @layer components {
+  /* Titres : graisse 600, interlettrage resserré, interlignage court. */
   .display {
-    font-family: var(--font-display);
-    font-weight: 450;
-    letter-spacing: -0.02em;
-    line-height: 1.08;
+    font-weight: 600;
+    letter-spacing: -0.028em;
+    line-height: 1.04;
   }
 
   .h2 {
-    font-family: var(--font-display);
-    font-weight: 450;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    font-size: clamp(1.8rem, 3vw, 2.75rem);
-    color: var(--color-navy);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.07;
+    font-size: clamp(2rem, 4.2vw, 3.5rem);
+    color: var(--color-ink);
+    text-wrap: balance;
+  }
+
+  .lead {
+    font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+    line-height: 1.45;
+    color: var(--color-ink-soft);
+    text-wrap: pretty;
   }
 
   .wrap {
     margin-inline: auto;
-    width: min(100% - 2rem, 82rem);
+    width: min(100% - 2.5rem, 76rem);
   }
 
-  @media (min-width: 640px) {
-    .wrap {
-      width: min(100% - 3rem, 82rem);
-    }
+  .wrap-wide {
+    margin-inline: auto;
+    width: min(100% - 1.5rem, 90rem);
   }
 
+  /* Fond de bandeau neutre (remplace l'ancien quadrillage). */
   .grid-paper {
-    background-image:
-      linear-gradient(to right, rgb(12 52 112 / 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(12 52 112 / 0.07) 1px, transparent 1px);
-    background-size: 72px 72px;
+    background-color: var(--color-paper-2);
   }
 
-  /* Champs de formulaire : contour encre, angles droits, focus orange. */
   .field {
     width: 100%;
-    min-height: 3rem;
-    border: 2px solid var(--color-ink);
+    min-height: 3.125rem;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-control);
     background: var(--color-paper);
-    padding: 0.65rem 0.9rem;
-    font-size: 1.05rem;
+    padding: 0.7rem 1rem;
+    font-size: 1.0625rem;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .field:hover {
+    border-color: #a1a1a6;
   }
 
   .field:focus {
-    outline: 3px solid var(--color-orange);
-    outline-offset: 2px;
+    outline: none;
+    border-color: var(--color-navy);
+    box-shadow: 0 0 0 4px rgb(12 52 112 / 0.15);
   }
 
   .field[aria-invalid='true'] {
     border-color: var(--color-orange);
-    border-style: dashed;
+    box-shadow: 0 0 0 4px rgb(194 65 12 / 0.12);
   }
 
   .label {
     display: block;
-    margin-bottom: 0.4rem;
-    font-size: 0.875rem;
-    font-weight: 700;
+    margin-bottom: 0.45rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  /* Carte : surface blanche, filet léger. Les tuiles photo ont leur propre arrondi (--radius-tile). */
+  .card {
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-card);
+    background: var(--color-paper);
   }
 
   .section {
-    padding-block: 4rem;
+    padding-block: 5rem;
   }
 
   @media (min-width: 640px) {
     .section {
-      padding-block: 6rem;
+      padding-block: 7rem;
     }
   }
 
   @media (min-width: 1024px) {
     .section {
-      padding-block: 7rem;
+      padding-block: 8.5rem;
     }
   }
 }

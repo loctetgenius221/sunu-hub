@@ -64,7 +64,7 @@ const set = <K extends keyof Filters>(k: K, v: Filters[K]) => (filters.value = {
     <button
       v-if="activeCount(filters)"
       type="button"
-      class="font-semibold underline decoration-orange decoration-2 underline-offset-4"
+      class="font-medium text-navy hover:underline"
       @click="filters = emptyFilters()"
     >
       Effacer les filtres

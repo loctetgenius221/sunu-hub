@@ -88,9 +88,9 @@ function submit() {
 </script>
 
 <template>
-  <section class="grid-paper border-b-2 border-ink">
+  <section class="grid-paper border-b border-rule">
     <div class="wrap py-10 sm:py-14">
-      <h1 class="display text-[clamp(2rem,3.6vw,3rem)] text-navy">Publier une opportunité</h1>
+      <h1 class="display text-[clamp(2rem,3.6vw,3rem)]">Publier une opportunité</h1>
       <p class="mt-3 max-w-xl text-ink-soft">Gratuit. L'offre est relue par notre équipe avant d'être mise en ligne.</p>
     </div>
   </section>
@@ -141,7 +141,7 @@ function submit() {
       </div>
 
       <!-- Refus des offres payantes -->
-      <p v-if="flagged.length" class="flex items-start gap-3 border-2 border-ink bg-orange p-4 font-semibold" role="alert">
+      <p v-if="flagged.length" class="flex items-start gap-3 rounded-card bg-orange-soft p-4 font-medium text-orange" role="alert">
         <ShieldAlert :size="22" class="mt-0.5 shrink-0" aria-hidden="true" />
         <span>
           Votre texte mentionne « {{ flagged.join(' », « ') }} ». Une offre qui demande de l'argent au candidat est refusée : retirez
@@ -149,17 +149,17 @@ function submit() {
         </span>
       </p>
 
-      <p v-else-if="suspect.length" class="border-l-4 border-orange pl-3 text-sm" role="status">
+      <p v-else-if="suspect.length" class="rounded-control bg-paper-2 px-4 py-3 text-[0.9375rem]" role="status">
         Votre texte mentionne « {{ suspect.join(' », « ') }} ». S'il ne s'agit pas d'un paiement demandé au candidat, vous pouvez
         publier : notre équipe vérifiera ce point lors de la relecture.
       </p>
 
-      <label class="flex items-start gap-3 border-t-2 border-ink pt-6 text-sm">
+      <label class="flex items-start gap-3 border-t border-rule pt-6 text-sm">
         <input v-model="form.free" type="checkbox" class="mt-0.5 h-5 w-5 shrink-0 accent-navy" :aria-invalid="touched && errors.free" />
         <span class="font-semibold">Je confirme que cette opportunité est entièrement gratuite pour les candidats.</span>
       </label>
 
-      <p v-if="touched && !valid && !flagged.length" class="border-l-4 border-orange pl-3 text-sm font-semibold" role="alert">
+      <p v-if="touched && !valid && !flagged.length" class="rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">
         Il manque une information : intitulé (6 caractères), description (20 caractères), niveaux, filières, date limite et
         confirmation de gratuité.
       </p>
@@ -172,7 +172,7 @@ function submit() {
 
     <!-- Audience estimée -->
     <aside class="min-w-0 lg:col-span-4 lg:col-start-9">
-      <div class="border-2 border-ink bg-navy p-6 text-white shadow-[10px_10px_0_var(--color-orange)] lg:sticky lg:top-24">
+      <div class="rounded-tile bg-navy-deep p-7 text-white shadow-lift lg:sticky lg:top-24">
         <p class="flex items-center gap-2 text-sm font-semibold"><Users :size="18" aria-hidden="true" />Profils correspondants</p>
         <p class="display mt-2 text-[3.4rem] leading-none tabular-nums" aria-live="polite">{{ shown.toLocaleString('fr-FR') }}</p>
         <p class="mt-2 text-sm text-white/75">
