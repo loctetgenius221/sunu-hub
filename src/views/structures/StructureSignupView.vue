@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
+import { RouterLink, useRouter } from 'vue-router'
+
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { structureKinds } from '@/data/labels'
 import { cities } from '@/data/questions'
@@ -100,7 +100,13 @@ function submit() {
 
           <label class="mt-7 flex items-start gap-3 text-sm">
             <input v-model="form.terms" type="checkbox" class="mt-0.5 h-5 w-5 shrink-0 accent-navy" :aria-invalid="touched && errors.terms" />
-            <span>Je m'engage à ne publier que des offres gratuites pour les candidats et à ne contacter les jeunes qu'avec leur accord.</span>
+            <span>
+              Je m'engage à ne publier que des offres gratuites pour les candidats et à ne contacter les jeunes qu'avec leur accord, comme le
+              prévoient les
+              <RouterLink to="/conditions-utilisation#structures" target="_blank" class="font-medium text-navy underline underline-offset-2">conditions d'utilisation</RouterLink>
+              et la
+              <RouterLink to="/charte-neutralite" target="_blank" class="font-medium text-navy underline underline-offset-2">charte de neutralité</RouterLink>.
+            </span>
           </label>
 
           <p v-if="touched && !valid" class="mt-5 rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">
@@ -110,16 +116,14 @@ function submit() {
         </form>
       </div>
 
-      <aside class="min-w-0 lg:col-span-4 lg:col-start-9 lg:pt-28">
-        <div class="hidden aspect-[4/3] overflow-hidden rounded-tile lg:block">
-          <ResponsiveImage name="structures" sizes="30vw" />
-        </div>
-        <ol class="mt-8 space-y-4 text-[0.9375rem]">
+      <div class="min-w-0 lg:col-span-4 lg:col-start-9 lg:pt-28">
+        <h2 class="text-[1.125rem] font-semibold">Comment ça se passe</h2>
+        <ol class="mt-4 space-y-4 text-[0.9375rem]">
           <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">1</span> Vous envoyez la demande.</li>
           <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">2</span> Nous vérifions l'e-mail ou le NINEA, sous 48 h ouvrées.</li>
           <li class="flex gap-3"><span class="grid h-6 w-6 shrink-0 place-items-center rounded-full bg-navy text-xs font-semibold text-white">3</span> Vous publiez votre première offre.</li>
         </ol>
-      </aside>
+      </div>
     </div>
   </section>
 </template>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
+import { legalPages } from '@/data/legal'
 import { useProfileStore } from '@/stores/profile'
 import { useOrientationStore } from '@/stores/orientation'
 import { useStructureStore } from '@/stores/structure'
@@ -29,11 +30,25 @@ const router = createRouter({
     { path: '/orienter/voeux', name: 'orient-wishes', component: () => import('@/views/orient/WishesView.vue'), meta: { title: 'Ma liste de vœux', orientDone: true } },
     { path: '/orienter/resume', name: 'orient-summary', component: () => import('@/views/orient/FamilySummaryView.vue'), meta: { title: 'Résumé pour la famille', orientDone: true } },
     { path: '/orienter/assistant', name: 'orient-assistant', component: () => import('@/views/orient/AssistantView.vue'), meta: { title: 'Assistant d’orientation' } },
+    // Pages légales et d'information : un seul gabarit, contenu dans data/legal.ts.
+    ...legalPages.map((p) => ({
+      path: `/${p.slug}`,
+      name: p.slug,
+      component: () => import('@/views/LegalView.vue'),
+      props: { slug: p.slug },
+      meta: { title: p.title },
+    })),
+    { path: '/aide', name: 'help', component: () => import('@/views/HelpView.vue'), meta: { title: 'Aide et contact' } },
     { path: '/equipe', name: 'admin', component: () => import('@/views/AdminView.vue'), meta: { title: 'Back-office' } },
     { path: '/:pathMatch(.*)*', name: 'not-found', component: placeholder, meta: { title: 'Page introuvable' } },
   ],
   // Un changement de filtres (même page, autre query) ne remonte pas en haut.
-  scrollBehavior: (to, from, saved) => saved ?? (to.hash ? { el: to.hash } : to.path === from.path ? false : { top: 0 }),
+  // Le défilement attend la fin du fondu de sortie (150 ms) : pas de saut visible avant le changement de page.
+  scrollBehavior: (to, from, saved) => {
+    if (to.path === from.path) return to.hash ? { el: to.hash } : false
+    const target = saved ?? (to.hash ? { el: to.hash } : { top: 0 })
+    return new Promise((resolve) => setTimeout(() => resolve(target), 160))
+  },
 })
 
 // Espace personnel réservé aux profils terminés ; un profil terminé n'a plus besoin de l'inscription.

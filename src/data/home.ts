@@ -17,7 +17,7 @@ export const stages: { id: Stage; label: string; promise: string }[] = [
   {
     id: 'etudiant',
     label: 'Étudiant',
-    promise: 'Les stages, bourses et concours ouverts pour ta filière, triés par pertinence.',
+    promise: 'Les stages, bourses et concours ouverts pour ta filière, triés selon ton profil.',
   },
   {
     id: 'diplome',
@@ -38,17 +38,17 @@ export const demoProfile: Profile = {
 }
 
 export const alerts = [
-  { time: '09:12', text: 'Nouveau : Stage développeur web chez Teranga Digital. Score 100/100, à Dakar.' },
+  { time: '09:12', text: 'Nouveau : stage de développeur web chez Teranga Digital, à Dakar. Il correspond à ton profil.' },
   { time: '18:40', text: 'Rappel : la formation en marketing digital ferme dans 7 jours.' },
   { time: '08:05', text: 'Dernier jour pour le concours d’entrée en école de commerce.' },
 ]
 
 export const structuresPitch = {
   title: 'Publiez vos opportunités, gratuitement.',
-  lead: 'Écoles, entreprises, ONG et incubateurs : un formulaire court, un compte vérifié, et vos offres arrivent aux jeunes dont le profil correspond.',
+  lead: 'Un compte vérifié, un formulaire court : vos offres arrivent directement aux jeunes dont le profil correspond.',
   points: [
     'Le nombre de profils correspondants, visible avant de publier',
-    'Les candidatures classées par adéquation',
+    'Les candidatures triées de la plus adaptée à la moins adaptée',
     'Un badge « vérifiée » pour votre structure',
   ],
   matching: { count: 1248, filters: ['Licence', 'Informatique', 'Dakar'] },
@@ -83,7 +83,7 @@ export const howItWorks = [
   {
     id: 'suivi',
     title: 'Tu suis tes candidatures.',
-    text: 'Envoyée, entretien, réponse : tout est au même endroit, et la structure peut te répondre ici.',
+    text: 'Envoyée, entretien, réponse : chaque candidature se suit au même endroit, jusqu’à la réponse de la structure.',
   },
 ] as const
 
@@ -92,6 +92,6 @@ export type HowStep = (typeof howItWorks)[number]['id']
 /** Chiffres de contexte (TDR §1 et §2.1), sourcés. */
 export const keyFigures = [
   { value: '286 169', label: 'étudiants au Sénégal en 2024, dans le public et le privé', source: 'Le Soleil' },
-  { value: '75 000', label: 'nouveaux bacheliers à orienter chaque année, environ', source: 'Le Soleil, Campusen 2025' },
+  { value: '75 000', label: 'nouveaux bacheliers à orienter chaque année, en moyenne', source: 'Le Soleil, Campusen 2025' },
   { value: '0 FCFA', label: 'pour les jeunes, sans exception', source: 'Engagement SUNU HŪB' },
 ]

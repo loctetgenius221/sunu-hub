@@ -30,6 +30,7 @@ function submit() {
       <span class="grid place-items-center rounded-l-control border border-r-0 border-rule bg-paper-2 px-4 font-medium">+221</span>
       <input
         id="phone"
+        autofocus
         v-model="phone"
         type="tel"
         inputmode="numeric"

@@ -122,13 +122,13 @@ function deleteAccount() {
         <section id="cv" aria-labelledby="h-cv" class="scroll-mt-24">
           <h2 id="h-cv" class="text-[1.75rem] font-semibold tracking-[-0.025em]">Mon CV</h2>
           <div class="mt-5 rounded-tile bg-white p-6 shadow-soft sm:p-8">
-            <p class="max-w-xl text-ink-soft">Ton CV est généré à partir de ton profil. Tu peux l'enregistrer en PDF depuis l'aperçu.</p>
+            <p class="max-w-xl text-ink-soft">Ton CV se remplit tout seul à partir de ton profil. Ouvre-le pour l'enregistrer en PDF.</p>
             <div class="mt-6 flex flex-wrap items-center gap-x-8 gap-y-5">
               <BaseButton :to="{ name: 'cv' }" variant="secondary"><FileText :size="18" aria-hidden="true" />Voir mon CV</BaseButton>
               <label class="flex cursor-pointer items-center gap-3 font-medium">
                 <input v-model="store.state.publicCv" type="checkbox" class="peer sr-only" />
                 <span class="relative h-7 w-12 rounded-full bg-[#e3e3e8] transition-colors peer-checked:bg-green peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-navy after:absolute after:top-0.5 after:left-0.5 after:h-6 after:w-6 after:rounded-full after:bg-white after:shadow after:transition-transform peer-checked:after:translate-x-5" aria-hidden="true"></span>
-                Lien public
+                Partager mon CV par un lien
               </label>
             </div>
             <p v-if="store.state.publicCv" class="mt-5 max-w-full rounded-control bg-paper-2 px-4 py-3 text-[0.9375rem] break-all">

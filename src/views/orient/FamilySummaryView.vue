@@ -40,7 +40,7 @@ const print = () => window.print()
   <div class="bg-paper-2 py-10 print:bg-white print:py-0">
     <div class="wrap flex max-w-[56rem] flex-wrap items-center justify-between gap-4 print:hidden">
       <TextLink :to="{ name: 'orient-results' }">Retour aux pistes</TextLink>
-      <div class="flex flex-wrap gap-3">
+      <div class="flex flex-wrap gap-3 max-sm:w-full">
         <BaseButton :href="whatsapp" target="_blank" rel="noopener noreferrer" variant="light" class="shadow-soft"><Share2 :size="18" aria-hidden="true" />WhatsApp</BaseButton>
         <BaseButton @click="print"><Printer :size="18" aria-hidden="true" />Enregistrer en PDF</BaseButton>
       </div>

@@ -6,7 +6,7 @@ withDefaults(defineProps<{ title: string; lead?: string; id?: string; onDark?: b
 </script>
 
 <template>
-  <div class="max-w-3xl" :class="center && 'mx-auto text-center'">
+  <div v-reveal class="max-w-3xl" :class="center && 'mx-auto text-center'">
     <h2 :id="id" class="h2" :class="onDark && 'text-white!'">{{ title }}</h2>
     <p v-if="lead" class="lead mt-5" :class="[onDark && 'text-white/75!', center && 'mx-auto max-w-2xl']">{{ lead }}</p>
     <slot />

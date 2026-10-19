@@ -18,8 +18,10 @@ Elle remplace la première direction (« Éditorial isométrique ») ; l'ancienn
 
 - Police unique : Instrument Sans (titres en 600, interlettrage resserré). Montserrat ne sert qu'au logotype de la charte.
 - Formes : tuiles arrondies (28 px), cartes (20 px), champs (12 px), boutons pilule ; ombres douces, filets fins.
-- Photos : Unsplash (provisoires, créditées en pied de page), WebP en deux largeurs dans `public/images`, déclarées dans `src/data/photos.ts`.
-- Mouvement (motion) : photo du héros qui s'ouvre au défilement, téléphone fixe dans « Comment ça marche », compteur ; tout est coupé en mouvement réduit.
+- Photos : deux sur tout le site (en-tête de « Vérifier une école », bandeau structures de l'accueil), Unsplash provisoires créditées en pied de page. Les autres en-têtes utilisent la couleur principale (marine profond).
+- Orange du logo (`#FF6B00`) en signature discrète, toujours décorative : barre d'accent au-dessus des titres d'en-tête (reprise du macron de HŪB), trait sous la navigation active, indicateur d'onglet mobile, étape en cours de l'inscription, point « ouvertes en ce moment ».
+- Mouvement (motion) : téléphone fixe dans « Comment ça marche », compteur ; tout est coupé en mouvement réduit.
+- Utilisabilité : navigation mobile par le menu, boutons principaux pleine largeur sur téléphone, filtres rapides par type, actions principales en haut des fiches, curseur placé d'office dans les champs de l'inscription.
 - Contrastes vérifiés à l'audit axe-core (texte ≥ 4,5:1).
 
 ## Architecture
@@ -52,3 +54,4 @@ src/
 - [x] **7. Orienter (V2)** (O2–O8) : questionnaire de 15 questions (sauvegarde à chaque réponse, pré-rempli depuis le profil), moteur 35/25/15/15/10 avec filtres (série, établissement vérifié, budget, ville), 3 pistes + 2 élargies avec pourquoi, statut, coût, débouchés (estimation) et risques, liste de vœux Campusen ordonnée avec plan B et export WhatsApp / PDF, résumé famille imprimable, assistant simulé (source et date, « je ne sais pas », signalement, limite quotidienne), demande de conseiller.
 - [x] **8. Finitions** : PWA installable (manifeste, icônes, service worker, polices en cache, fiches consultables hors ligne), back-office `/equipe` (indicateurs du TDR §9, curation des offres, file de validation des structures et des offres, journal), audit axe-core sur 20 pages, poids mesuré (~110 Ko de site par page, polices allégées de 320 à 200 Ko max), modération à deux niveaux (blocage / relecture).
 - [x] **9. Refonte « Institutionnel premium »** : nouveau design system (Instrument Sans, marine, gris Apple, arrondis, ombres douces), photos optimisées, accueil refait (héros photo qui s'ouvre au défilement, tuiles, rayonnage, téléphone fixe), toutes les pages restylées, illustrations isométriques supprimées, contrastes corrigés (audit axe sans violation sur 25 pages).
+- [x] **10. Simplification** : héros sur la couleur principale avec aperçu des offres réelles selon le stade, une seule photo, accueil raccourci (tuiles d'entrée directe), filtres rapides, actions en haut de fiche, en-têtes compacts.

@@ -16,7 +16,7 @@ export const howItWorks: { title: string; text: string; delay: string; icon: 'sh
   },
   {
     title: 'Recevoir des candidatures classées',
-    text: 'Les candidats sont triés par adéquation. Le statut que vous indiquez est visible par le jeune.',
+    text: 'Les candidats sont triés du plus au moins adapté. Le jeune voit la réponse que vous lui donnez.',
     delay: 'Dès la mise en ligne',
     icon: 'inbox',
   },

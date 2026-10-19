@@ -6,9 +6,6 @@ import StepCode from '@/components/signup/StepCode.vue'
 import StepIdentity from '@/components/signup/StepIdentity.vue'
 import StepPhone from '@/components/signup/StepPhone.vue'
 import ChoiceChips from '@/components/ui/ChoiceChips.vue'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
-import type { PhotoName } from '@/data/photos'
-import { stages } from '@/data/home'
 import { questions } from '@/data/questions'
 import { requestCode, verifyCode } from '@/services/api'
 import { useProfileStore } from '@/stores/profile'
@@ -94,15 +91,11 @@ function back() {
   if (step.value === 'phone') store.state.verified = false
 }
 
-// Photo et promesse suivent le stade choisi (étudiant par défaut).
-const stagePhotos: Record<string, PhotoName> = { terminale: 'lyceen', bachelier: 'orienter', etudiant: 'etudiant', diplome: 'etudiante' }
-const photo = computed(() => stagePhotos[store.state.answers.stage ?? 'etudiant']!)
-const promise = computed(() => (stages.find((s) => s.id === (store.state.answers.stage ?? 'etudiant')) ?? stages[2]!).promise)
 </script>
 
 <template>
   <section class="min-h-[calc(100svh-3.5rem)] bg-paper-2">
-    <div class="wrap grid grid-cols-1 items-start gap-10 py-10 sm:py-14 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-16">
+    <div class="wrap max-w-2xl py-10 sm:py-14 lg:py-16">
       <div class="min-w-0">
         <!-- Progression -->
         <div class="flex items-center gap-4">
@@ -120,7 +113,7 @@ const promise = computed(() => (stages.find((s) => s.id === (store.state.answers
               v-for="(s, i) in order"
               :key="String(s)"
               class="h-1 flex-1 rounded-full transition-colors duration-500"
-              :class="i <= position ? 'bg-navy' : 'bg-[#dcdce1]'"
+              :class="i < position ? 'bg-navy' : i === position ? 'bg-brand-orange' : 'bg-[#dcdce1]'"
             ></li>
           </ol>
           <span class="text-[0.875rem] font-medium text-ink-soft tabular-nums">{{ position + 1 }} sur {{ order.length }}</span>
@@ -167,22 +160,6 @@ const promise = computed(() => (stages.find((s) => s.id === (store.state.answers
         </div>
       </div>
 
-      <!-- Photo qui suit le stade choisi -->
-      <figure class="relative hidden overflow-hidden rounded-tile bg-navy-deep lg:sticky lg:top-24 lg:block lg:aspect-[4/5]">
-        <Transition
-          enter-from-class="opacity-0"
-          leave-to-class="opacity-0"
-          enter-active-class="transition duration-700"
-          leave-active-class="transition duration-700 absolute inset-0"
-        >
-          <ResponsiveImage :key="photo" :name="photo" sizes="40vw" class="absolute inset-0" />
-        </Transition>
-        <div class="absolute inset-0 bg-linear-to-t from-[#04112a]/80 via-transparent to-transparent" aria-hidden="true"></div>
-        <figcaption class="absolute inset-x-0 bottom-0 p-8 text-white">
-          <p class="text-[1.375rem] leading-snug font-semibold tracking-[-0.02em]">{{ promise }}</p>
-          <p class="mt-2 text-[0.875rem] text-white/70">Gratuit, sans e-mail ni mot de passe.</p>
-        </figcaption>
-      </figure>
     </div>
   </section>
 </template>

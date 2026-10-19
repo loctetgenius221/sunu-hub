@@ -29,7 +29,7 @@ const reached = computed(() => applicationSteps.findIndex((s) => s.id === app.va
     </ol>
     <p class="mt-2 text-xs text-ink-soft" aria-live="polite">
       <template v-if="app">Mis à jour le {{ formatDate(app.updatedAt) }}. </template>
-      <template v-else>Indique où en est ta candidature : tu retrouveras le suivi dans tes candidatures.</template>
+      <template v-else>Touche une étape pour indiquer où tu en es. Le suivi apparaît dans « Candidatures ».</template>
       <button v-if="app" type="button" class="font-medium text-navy hover:underline" @click="activity.removeApplication(id)">Retirer le suivi</button>
     </p>
   </div>

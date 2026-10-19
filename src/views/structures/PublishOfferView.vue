@@ -160,11 +160,11 @@ function submit() {
       </label>
 
       <p v-if="touched && !valid && !flagged.length" class="rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">
-        Il manque une information : intitulé (6 caractères), description (20 caractères), niveaux, filières, date limite et
-        confirmation de gratuité.
+        Pour envoyer l'offre, complétez : un intitulé (6 caractères au moins), une description (20 caractères au moins), un niveau,
+        une filière, une date limite à venir et la confirmation de gratuité.
       </p>
 
-      <div class="flex flex-wrap items-center gap-x-8 gap-y-4">
+      <div class="flex flex-wrap items-center gap-x-8 gap-y-4 max-sm:justify-center">
         <BaseButton type="submit">Envoyer pour validation</BaseButton>
         <button type="button" class="font-semibold underline underline-offset-4" @click="router.back()">Annuler</button>
       </div>

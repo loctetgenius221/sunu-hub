@@ -5,6 +5,8 @@ import { RouterLink, type RouteLocationRaw } from 'vue-router'
 // Bouton pilule. `primary` (marine plein) : une seule action principale par écran.
 // `secondary` : surface neutre. `light` : blanc plein, pour les fonds photo ou sombres.
 // `glass` : translucide, pour une action secondaire posée sur une photo.
+// Sur téléphone (< 640 px), les tailles `md` et `lg` prennent toute la largeur : cible large,
+// facile à atteindre au pouce. `inline` garde la largeur du texte.
 const props = withDefaults(
   defineProps<{
     to?: RouteLocationRaw
@@ -13,6 +15,7 @@ const props = withDefaults(
     size?: 'md' | 'lg' | 'sm'
     type?: 'button' | 'submit'
     block?: boolean
+    inline?: boolean
   }>(),
   { variant: 'primary', size: 'md', type: 'button' },
 )
@@ -39,8 +42,8 @@ const sizes = {
     :to="to"
     :href="href"
     :type="tag === 'button' ? type : undefined"
-    class="inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,transform,box-shadow] duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
-    :class="[variants[variant], sizes[size], block && 'w-full']"
+    class="inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,scale,box-shadow] duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+    :class="[variants[variant], sizes[size], block ? 'w-full' : size !== 'sm' && !inline && 'max-sm:w-full']"
   >
     <slot />
   </component>

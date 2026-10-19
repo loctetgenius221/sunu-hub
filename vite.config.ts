@@ -20,7 +20,7 @@ export default defineConfig({
       manifest: {
         name: 'SUNU HŪB',
         short_name: 'SUNU HŪB',
-        description: 'Orientation, stages, bourses, concours et premiers emplois pour la jeunesse sénégalaise.',
+        description: 'La plateforme intelligente de la jeunesse sénégalaise : orientation, stages, bourses, concours et premiers emplois.',
         lang: 'fr',
         start_url: '/',
         display: 'standalone',

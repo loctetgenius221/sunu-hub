@@ -18,7 +18,7 @@ watch(
 </script>
 
 <template>
-  <header class="sticky top-0 z-40 border-b border-black/[0.08] bg-white/75 backdrop-blur-xl backdrop-saturate-150 print:hidden">
+  <header class="sticky top-0 z-40 border-b border-black/8 bg-white/75 backdrop-blur-xl backdrop-saturate-150 print:hidden">
     <div class="wrap flex h-14 items-center justify-between gap-6">
       <RouterLink to="/" aria-label="SUNU HŪB, accueil" class="shrink-0">
         <SunuLogo size="sm" />
@@ -29,8 +29,8 @@ watch(
           <li v-for="item in nav" :key="item.to">
             <RouterLink
               :to="item.to"
-              class="rounded-full px-3.5 py-1.5 text-ink/80 transition-colors hover:bg-black/[0.04] hover:text-ink"
-              active-class="bg-black/[0.05] text-ink!"
+              class="relative rounded-full px-3.5 py-1.5 text-ink/80 transition-colors hover:bg-black/4 hover:text-ink"
+              active-class="text-ink! font-medium after:absolute after:inset-x-3.5 after:-bottom-[0.6rem] after:h-0.5 after:bg-brand-orange"
             >
               {{ item.label }}
             </RouterLink>
@@ -45,7 +45,7 @@ watch(
         </div>
         <button
           type="button"
-          class="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-black/[0.05] lg:hidden"
+          class="grid h-10 w-10 place-items-center rounded-full transition-colors hover:bg-black/5 lg:hidden"
           :aria-expanded="open"
           aria-controls="menu-mobile"
           @click="open = !open"

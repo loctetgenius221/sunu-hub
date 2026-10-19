@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Check, Clock, FileText, Inbox, ShieldCheck } from 'lucide-vue-next'
+import AccentBar from '@/components/brand/AccentBar.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import SectionHead from '@/components/ui/SectionHead.vue'
 import { freeNow, howItWorks, later } from '@/data/structuresPage'
 import { useStructureStore } from '@/stores/structure'
@@ -12,12 +12,10 @@ const icons = { shield: ShieldCheck, file: FileText, inbox: Inbox }
 </script>
 
 <template>
-  <!-- En-tête photo -->
-  <section class="bg-white pt-3 sm:pt-4">
-    <div class="wrap-wide relative min-h-[34rem] overflow-hidden rounded-tile bg-navy-deep text-white">
-      <ResponsiveImage name="structures" sizes="100vw" eager class="absolute inset-0" />
-      <div class="absolute inset-0 bg-linear-to-r from-[#04112a]/90 via-[#04112a]/60 to-transparent" aria-hidden="true"></div>
-      <div class="relative flex min-h-[34rem] max-w-2xl flex-col justify-end p-8 sm:p-12 lg:p-16">
+  <section class="bg-navy-deep text-white">
+    <div class="wrap py-14 sm:py-20">
+      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl">
+        <AccentBar class="mb-7" />
         <p class="text-[0.9375rem] font-medium text-white/70">Écoles, entreprises, ONG, incubateurs</p>
         <h1 class="display mt-3 text-[clamp(2.5rem,5vw,4.25rem)]">Vos opportunités, devant les bons profils.</h1>
         <p class="mt-5 max-w-xl text-[1.125rem] leading-snug text-white/80">
@@ -35,7 +33,7 @@ const icons = { shield: ShieldCheck, file: FileText, inbox: Inbox }
 
   <section aria-labelledby="etapes" class="section bg-white">
     <div class="wrap">
-      <SectionHead id="etapes" title="Trois étapes, sans démarchage." lead="Pas d'abonnement ni de contrat : un compte vérifié suffit pour commencer." />
+      <SectionHead id="etapes" title="Trois étapes, sans engagement." lead="Pas d'abonnement ni de contrat : un compte vérifié suffit pour commencer." />
       <ol class="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
         <li v-for="(s, i) in howItWorks" :key="s.title" class="min-w-0">
           <span class="grid h-12 w-12 place-items-center rounded-2xl bg-navy-soft text-navy" aria-hidden="true">

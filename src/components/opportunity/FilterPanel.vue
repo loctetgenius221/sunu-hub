@@ -1,27 +1,17 @@
 <script setup lang="ts">
 import ChoiceChips from '@/components/ui/ChoiceChips.vue'
-import { opportunityTypes } from '@/data/labels'
 import { cities, fields } from '@/data/questions'
 import { activeCount, emptyFilters, type Filters } from '@/services/filters'
 
-// Filtres du fil (TDR Q3) : type, niveau, filière, ville, date limite.
+// Filtres détaillés du fil (TDR Q3) : niveau, filière, ville, date limite.
+// Le type se choisit par les filtres rapides, au-dessus des résultats.
 const filters = defineModel<Filters>({ required: true })
 
-const typeOptions = Object.entries(opportunityTypes).map(([value, label]) => ({ value, label }))
 const set = <K extends keyof Filters>(k: K, v: Filters[K]) => (filters.value = { ...filters.value, [k]: v })
 </script>
 
 <template>
   <div class="space-y-7">
-    <ChoiceChips
-      :model-value="filters.types"
-      multiple
-      legend="Type"
-      :options="typeOptions"
-      class="[&_label]:min-h-9 [&_label]:px-3 [&_label]:py-1 [&_label]:text-sm"
-      @update:model-value="set('types', $event as Filters['types'])"
-    />
-
     <div>
       <label for="f-level" class="label">Niveau</label>
       <select id="f-level" :value="filters.level" class="field" @change="set('level', ($event.target as HTMLSelectElement).value as Filters['level'])">

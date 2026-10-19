@@ -7,4 +7,4 @@ export const nav = [
   { label: 'Structures', to: '/structures' },
 ]
 
-export const tagline = 'La plateforme qui accompagne, connecte et valorise la jeunesse sénégalaise.'
+export const tagline = 'La plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise.'

@@ -36,7 +36,7 @@ async function rate(useful: boolean) {
   if (!item.value) return
   activity.state.feedback[item.value.id] = useful
   await sendFeedback(item.value.id, useful)
-  show('Merci : ton avis améliore les recommandations.')
+  show('Merci, ton avis améliore tes recommandations.')
 }
 
 const reporting = ref(false)
@@ -99,6 +99,12 @@ async function report(reason: string) {
             </div>
           </div>
         </div>
+
+        <!-- Mobile : l'action principale tout de suite, sans faire défiler la fiche -->
+        <div class="mt-6 flex gap-2 lg:hidden">
+          <BaseButton :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" class="flex-1">Candidater</BaseButton>
+          <SaveButton :id="item.id" :title="item.title" />
+        </div>
       </div>
     </section>
 
@@ -119,12 +125,12 @@ async function report(reason: string) {
               Gratuit pour le candidat
             </li>
           </ul>
-          <p class="mt-3 text-sm text-ink-soft">Une offre qui te demande de l'argent n'est jamais publiée sur SUNU HŪB. Si c'est le cas, signale-la.</p>
+          <p class="mt-3 text-sm text-ink-soft">Si on te demande de l'argent pour candidater, c'est une arnaque : signale l'offre.</p>
         </section>
 
         <section aria-labelledby="h-candidature" class="rounded-tile bg-white p-7 shadow-soft sm:p-9">
           <h2 id="h-candidature" class="text-[1.375rem] font-semibold tracking-[-0.02em]">Ma candidature</h2>
-          <p class="mt-2 mb-5 text-ink-soft">Tu candidates directement auprès de la structure. Ensuite, suis l'avancement ici.</p>
+          <p class="mt-2 mb-5 text-ink-soft">Tu candidates sur le site de la structure. Ensuite, indique ici où tu en es.</p>
           <ApplicationTracker :id="item.id" />
         </section>
 
@@ -144,7 +150,7 @@ async function report(reason: string) {
       <aside class="min-w-0 lg:col-span-4 lg:col-start-9">
         <div class="space-y-6 lg:sticky lg:top-24">
           <div class="rounded-tile bg-white p-6 shadow-soft">
-            <BaseButton :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" block>Candidater sur le site d'origine</BaseButton>
+            <BaseButton :href="item.sourceUrl" target="_blank" rel="noopener noreferrer" block>Candidater</BaseButton>
             <SaveButton :id="item.id" :title="item.title" class="mt-3 w-full justify-center" />
             <p v-if="activity.isSaved(item.id) && reminders(item.deadline).length" class="mt-3 flex items-start gap-2 text-sm text-ink-soft">
               <BellRing :size="16" class="mt-0.5 shrink-0 text-navy" aria-hidden="true" />
@@ -159,10 +165,10 @@ async function report(reason: string) {
             <p v-if="scored.reasons.length" class="mt-2 text-sm text-ink-soft">Pourquoi : {{ scored.reasons.join(', ') }}.</p>
 
             <div class="mt-5 border-t border-rule pt-5">
-              <p class="text-[0.9375rem] font-medium">Cette offre te semble-t-elle pertinente&nbsp;?</p>
+              <p class="text-[0.9375rem] font-medium">Cette offre te correspond-elle&nbsp;?</p>
               <div class="mt-3 flex gap-2">
                 <button
-                  v-for="opt in [{ v: true, label: 'Pertinente', icon: ThumbsUp }, { v: false, label: 'Pas pertinente', icon: ThumbsDown }]"
+                  v-for="opt in [{ v: true, label: 'Oui', icon: ThumbsUp }, { v: false, label: 'Pas vraiment', icon: ThumbsDown }]"
                   :key="opt.label"
                   type="button"
                   class="inline-flex min-h-11 flex-1 items-center justify-center gap-2 rounded-full px-3 text-[0.9375rem] font-medium transition-colors"

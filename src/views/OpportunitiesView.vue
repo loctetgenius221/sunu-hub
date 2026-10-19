@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { BellRing, Search, SlidersHorizontal, X } from 'lucide-vue-next'
 import ApplicationTracker from '@/components/opportunity/ApplicationTracker.vue'
 import FilterPanel from '@/components/opportunity/FilterPanel.vue'
 import OpportunityCard from '@/components/opportunity/OpportunityCard.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import { formatDate } from '@/data/labels'
+import { formatDate, opportunityTypes } from '@/data/labels'
 import { getFeed } from '@/services/api'
 import { activeCount, applyFilters, emptyFilters, type Filters } from '@/services/filters'
 import { reminders } from '@/services/matching'
@@ -68,19 +68,34 @@ const tabs = computed(() => [
 ])
 
 const showFilters = ref(false)
+
+// Grand écran : filtres en colonne ; mobile : filtres rapides + panneau sur demande.
+const wide = ref(true)
+let mq: MediaQueryList | undefined
+const syncWide = () => (wide.value = !!mq?.matches)
+onMounted(() => {
+  mq = window.matchMedia('(min-width: 1024px)')
+  syncWide()
+  mq.addEventListener('change', syncWide)
+})
+onBeforeUnmount(() => mq?.removeEventListener('change', syncWide))
+
+const quickTypes = [{ value: '', label: 'Tout' }, ...Object.entries(opportunityTypes).map(([value, label]) => ({ value, label }))]
+const isQuick = (t: string) => (t ? filters.value.types.length === 1 && filters.value.types[0] === t : !filters.value.types.length)
+const setQuick = (t: string) => (filters.value = { ...filters.value, types: t ? [t as OpportunityType] : [] })
 </script>
 
 <template>
   <section class="bg-white">
-    <div class="wrap pt-12 pb-8 sm:pt-16">
+    <div class="wrap pt-8 pb-6 sm:pt-16 sm:pb-8">
       <h1 class="display text-[clamp(2.5rem,5vw,4rem)]">Opportunités</h1>
-      <p class="lead mt-4 max-w-2xl">
-        <template v-if="profile.profile">Triées pour toi, {{ profile.profile.firstName }} : la pertinence dit pourquoi chaque offre est à sa place.</template>
+      <p class="lead mt-4 hidden max-w-2xl sm:block">
+        <template v-if="profile.profile">Triées pour toi, {{ profile.profile.firstName }}. Chaque offre indique pourquoi elle te correspond.</template>
         <template v-else>Stages, emplois juniors, bourses, concours, formations et financements, vérifiés et datés.</template>
       </p>
 
       <!-- Vues : commande segmentée -->
-      <nav aria-label="Vues" class="mt-8 inline-flex max-w-full gap-1 overflow-x-auto rounded-full bg-paper-2 p-1">
+      <nav aria-label="Vues" class="mt-5 inline-flex sm:mt-8 max-w-full gap-1 overflow-x-auto rounded-full bg-paper-2 p-1">
         <RouterLink
           v-for="t in tabs"
           :key="t.id"
@@ -97,29 +112,18 @@ const showFilters = ref(false)
   </section>
 
   <div class="bg-paper-2">
-  <div class="wrap py-10 lg:py-14">
+  <div class="wrap py-6 sm:py-10 lg:py-14">
     <!-- Invitation à créer un profil -->
-    <aside v-if="!profile.profile && view === 'fil'" class="mb-10 flex flex-wrap items-center justify-between gap-5 rounded-tile bg-navy-soft p-6 sm:p-7">
-      <p class="max-w-xl"><span class="font-semibold">Crée ton profil en deux minutes</span> pour voir les offres triées selon ton niveau et ta filière, avec un score et sa raison.</p>
-      <BaseButton to="/inscription">Créer mon profil</BaseButton>
-    </aside>
+    <!-- Invitation discrète : une ligne, un lien -->
+    <p v-if="!profile.profile && view === 'fil'" class="mb-6 flex flex-wrap items-center justify-between gap-x-4 gap-y-1 rounded-2xl bg-navy-soft px-5 py-3 text-[0.9375rem]">
+      <span>Crée ton profil pour voir ces offres triées pour toi.</span>
+      <RouterLink to="/inscription" class="font-semibold text-navy hover:underline">Créer mon profil</RouterLink>
+    </p>
 
     <div class="grid grid-cols-1 gap-10 lg:grid-cols-12">
-      <!-- Filtres -->
-      <aside v-if="view === 'fil'" class="min-w-0 lg:col-span-3" aria-label="Filtres">
-        <button
-          type="button"
-          class="flex min-h-11 w-full items-center justify-between rounded-full bg-white px-5 font-medium shadow-soft lg:hidden"
-          :aria-expanded="showFilters"
-          aria-controls="filtres"
-          @click="showFilters = !showFilters"
-        >
-          <span class="flex items-center gap-2"><SlidersHorizontal :size="18" aria-hidden="true" />Filtres</span>
-          <span v-if="activeCount(filters)" class="grid h-6 min-w-6 place-items-center rounded-full bg-navy text-xs text-white tabular-nums">{{ activeCount(filters) }}</span>
-        </button>
-        <div id="filtres" class="mt-5 lg:sticky lg:top-24 lg:mt-0 lg:block" :class="showFilters ? 'block' : 'hidden'">
-          <FilterPanel v-model="filters" />
-        </div>
+      <!-- Filtres détaillés : colonne fixe sur grand écran -->
+      <aside v-if="view === 'fil' && wide" class="min-w-0 lg:col-span-3" aria-label="Filtres">
+        <div class="lg:sticky lg:top-24"><FilterPanel v-model="filters" /></div>
       </aside>
 
       <div class="min-w-0" :class="view === 'fil' ? 'lg:col-span-9' : 'lg:col-span-12'">
@@ -128,6 +132,36 @@ const showFilters = ref(false)
           <label for="q" class="sr-only">Rechercher une opportunité</label>
           <input id="q" v-model="search" type="search" placeholder="Rechercher : développeur, bourse, Thiès…" class="min-w-0 flex-1 bg-transparent px-3 py-3.5 outline-none placeholder:text-ink-soft" />
           <button v-if="search" type="button" class="mr-2 grid w-10 place-items-center rounded-full text-ink-soft hover:text-ink" @click="search = ''"><X :size="18" aria-hidden="true" /><span class="sr-only">Effacer</span></button>
+        </div>
+
+        <!-- Filtres rapides par type, toujours visibles ; le reste sur demande (mobile) -->
+        <div v-if="view === 'fil'" class="-mx-5 mt-4 flex gap-2 overflow-x-auto px-5 pb-1 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden">
+          <button
+            v-for="t in quickTypes"
+            :key="t.value"
+            type="button"
+            class="min-h-10 shrink-0 rounded-full px-4 text-[0.9375rem] font-medium transition-colors"
+            :class="isQuick(t.value) ? 'bg-navy text-white' : 'bg-white text-ink shadow-soft hover:bg-[#ececf0]'"
+            :aria-pressed="isQuick(t.value)"
+            @click="setQuick(t.value)"
+          >
+            {{ t.label }}
+          </button>
+          <button
+            v-if="!wide"
+            type="button"
+            class="inline-flex min-h-10 shrink-0 items-center gap-2 rounded-full bg-white px-4 text-[0.9375rem] font-medium shadow-soft"
+            :aria-expanded="showFilters"
+            aria-controls="filtres"
+            @click="showFilters = !showFilters"
+          >
+            <SlidersHorizontal :size="16" aria-hidden="true" />Plus de filtres
+            <span v-if="activeCount(filters)" class="grid h-5 min-w-5 place-items-center rounded-full bg-navy px-1 text-[0.6875rem] text-white tabular-nums">{{ activeCount(filters) }}</span>
+          </button>
+        </div>
+        <div v-if="view === 'fil' && !wide && showFilters" id="filtres" class="mt-4 rounded-tile bg-white p-6 shadow-soft">
+          <FilterPanel v-model="filters" />
+          <BaseButton block class="mt-6" @click="showFilters = false">Afficher {{ results?.length ?? 0 }} résultat{{ (results?.length ?? 0) > 1 ? 's' : '' }}</BaseButton>
         </div>
 
         <h2 class="sr-only">Résultats</h2>
@@ -150,7 +184,7 @@ const showFilters = ref(false)
                 Rappel{{ reminders(o.deadline).length > 1 ? 's' : '' }} :
                 {{ reminders(o.deadline).map((r) => `${formatDate(r.date)} (${r.label})`).join(' et ') }}
               </template>
-              <template v-else>Date limite très proche : pas de rappel supplémentaire.</template>
+              <template v-else>La date limite est trop proche pour un rappel.</template>
             </p>
           </li>
         </ul>
@@ -172,10 +206,10 @@ const showFilters = ref(false)
           <p class="max-w-lg text-ink-soft">
             <template v-if="view === 'fil'">Élargis la ville ou la date limite, ou efface les filtres.</template>
             <template v-else-if="view === 'sauvegardes'">Sauvegarde une offre pour recevoir un rappel sept jours et un jour avant sa date limite.</template>
-            <template v-else>Depuis la fiche d'une offre, indique « J'ai candidaté » pour suivre les étapes.</template>
+            <template v-else>Ouvre une offre et indique où en est ta candidature : Envoyée, Entretien, Réponse reçue.</template>
           </p>
           <BaseButton v-if="view === 'fil' && activeCount(filters)" variant="secondary" @click="filters = emptyFilters(); search = ''">Effacer les filtres</BaseButton>
-          <BaseButton v-else-if="view !== 'fil'" :to="{ query: {} }" variant="secondary">Voir les offres</BaseButton>
+          <BaseButton v-else-if="view !== 'fil'" :to="{ query: {} }" variant="secondary">Voir les opportunités</BaseButton>
         </div>
       </div>
     </div>

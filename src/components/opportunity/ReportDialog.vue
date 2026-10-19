@@ -30,7 +30,7 @@ watch(open, (v) => (v ? dialog.value?.showModal() : dialog.value?.close()))
           {{ r }}
         </label>
       </fieldset>
-      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4 max-sm:justify-center">
         <BaseButton type="submit">Envoyer le signalement</BaseButton>
         <button type="button" class="font-medium text-navy hover:underline" @click="open = false">Annuler</button>
       </div>

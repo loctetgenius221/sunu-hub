@@ -27,7 +27,7 @@ function rate(helpful: boolean) {
       <div class="min-w-0">
         <h1 class="display text-[clamp(2.2rem,4vw,3.4rem)]">Tes pistes</h1>
         <p class="mt-3 max-w-xl text-[1.1rem] text-ink-soft">
-          Classées selon tes réponses. Seuls des établissements publics ou habilités sont proposés ; les chances sont données en fourchette.
+          Classées selon tes réponses. Nous ne proposons que des écoles publiques ou habilitées, et tes chances sont données en fourchette, sans faux pourcentage.
         </p>
       </div>
       <TextLink :to="{ name: 'orient-quiz' }">Modifier mes réponses</TextLink>
@@ -45,7 +45,7 @@ function rate(helpful: boolean) {
     <section v-if="results.wide.length" aria-labelledby="h-wide" class="mt-16">
       <div class="flex flex-wrap items-end justify-between gap-4 border-b border-rule pb-4">
         <h2 id="h-wide" class="h2">Deux pistes pour élargir</h2>
-        <p class="max-w-sm text-sm text-ink-soft">Hors de ton premier réflexe, mais cohérentes avec tes matières. Pour ne pas fermer de portes trop tôt.</p>
+        <p class="max-w-sm text-sm text-ink-soft">Des domaines auxquels tu n'as peut-être pas pensé, mais qui collent à tes matières fortes.</p>
       </div>
       <ul class="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
         <li v-for="p in results.wide" :key="p.program.id" class="min-w-0"><PisteCard :piste="p" wide /></li>
@@ -72,8 +72,8 @@ function rate(helpful: boolean) {
         <h3 class="display mt-3 text-[1.5rem]">Une question&nbsp;?</h3>
         <p class="mt-2 text-ink-soft">L'assistant répond à partir de notre base vérifiée, un conseiller sous 48 heures.</p>
         <div class="mt-5 flex flex-wrap gap-x-6 gap-y-3">
-          <TextLink :to="{ name: 'orient-assistant' }">Assistant</TextLink>
-          <button type="button" class="font-semibold text-navy hover:underline" @click="advisor = true">Conseiller</button>
+          <TextLink :to="{ name: 'orient-assistant' }">Poser une question</TextLink>
+          <button type="button" class="font-semibold text-navy hover:underline" @click="advisor = true">Parler à un conseiller</button>
         </div>
       </div>
     </section>

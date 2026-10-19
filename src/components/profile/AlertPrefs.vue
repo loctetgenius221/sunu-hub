@@ -38,8 +38,8 @@ const typeOptions = Object.entries(opportunityTypes).map(([value, label]) => ({ 
       ]"
     />
     <p class="rounded-control bg-paper-2 px-4 py-3 text-[0.9375rem] text-ink-soft">
-      Les rappels de date limite (sept jours et un jour avant) concernent seulement les offres que tu as sauvegardées. Réponds
-      <span class="font-semibold text-ink">STOP</span> à un message pour tout arrêter.
+      Pour les offres que tu sauvegardes, tu reçois aussi un rappel 7 jours et 1 jour avant la date limite. Pour tout arrêter,
+      réponds <span class="font-semibold text-ink">STOP</span> à un message.
     </p>
   </div>
 </template>

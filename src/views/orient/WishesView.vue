@@ -38,7 +38,7 @@ const print = () => window.print()
         <h1 class="display text-[clamp(2.2rem,4vw,3.4rem)]">Ma liste de vœux</h1>
         <p class="mt-3 max-w-xl text-[1.1rem] text-ink-soft">L'ordre compte : place en premier la formation que tu veux le plus.</p>
       </div>
-      <div class="flex flex-wrap gap-3 print:hidden">
+      <div class="flex flex-wrap gap-3 max-sm:w-full print:hidden">
         <BaseButton :href="whatsapp" target="_blank" rel="noopener noreferrer" variant="light" class="shadow-soft" :class="!items.length && 'pointer-events-none opacity-50'">
           <Share2 :size="18" aria-hidden="true" />WhatsApp
         </BaseButton>

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { RouterLink } from 'vue-router'
 import { ShieldCheck } from 'lucide-vue-next'
 import { commitments, keyFigures } from '@/data/home'
 
@@ -8,7 +9,7 @@ import { commitments, keyFigures } from '@/data/home'
 <template>
   <section id="engagements" aria-labelledby="h-engagements" class="section scroll-mt-14 bg-white">
     <div class="wrap">
-      <dl class="grid grid-cols-1 gap-10 border-b border-rule pb-16 md:grid-cols-3 md:gap-8">
+      <dl v-reveal.stagger class="grid grid-cols-1 gap-10 border-b border-rule pb-16 md:grid-cols-3 md:gap-8">
         <div v-for="f in keyFigures" :key="f.value" class="min-w-0">
           <dt class="sr-only">{{ f.label }}</dt>
           <dd>
@@ -20,14 +21,15 @@ import { commitments, keyFigures } from '@/data/home'
       </dl>
 
       <div class="grid grid-cols-1 gap-12 pt-16 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-20">
-        <div>
+        <div v-reveal>
           <h2 id="h-engagements" class="h2">Un avis indépendant, par écrit.</h2>
           <p class="lead mt-5">
             Ces règles figurent dans nos conditions d’utilisation. Elles ne changeront pas quand des services payants arriveront
             pour les structures.
           </p>
+          <RouterLink to="/charte-neutralite" class="mt-6 inline-block font-medium text-navy hover:underline">Lire la charte de neutralité</RouterLink>
         </div>
-        <ul class="divide-y divide-rule">
+        <ul v-reveal.stagger class="divide-y divide-rule">
           <li v-for="c in commitments" :key="c" class="flex gap-4 py-5 first:pt-0">
             <ShieldCheck :size="22" class="mt-0.5 shrink-0 text-navy" aria-hidden="true" />
             <p class="text-[1.1875rem] leading-snug tracking-[-0.01em]">{{ c }}</p>

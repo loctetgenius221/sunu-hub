@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { Check, ListChecks, ListOrdered, Route } from 'lucide-vue-next'
+import AccentBar from '@/components/brand/AccentBar.vue'
 import AdvisorDialog from '@/components/orient/AdvisorDialog.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import { orientQuestions } from '@/data/orientQuestions'
 import { useOrientationStore } from '@/stores/orientation'
 
@@ -26,34 +26,31 @@ const promises = [
 </script>
 
 <template>
-  <!-- En-tête : texte et photo côte à côte -->
-  <section class="bg-white">
-    <div class="wrap grid grid-cols-1 items-center gap-10 py-12 sm:py-16 lg:grid-cols-2 lg:gap-16">
-      <div class="min-w-0">
+  <section class="bg-navy-deep text-white">
+    <div class="wrap py-14 sm:py-20">
+      <div v-reveal.once.stagger="{ distance: 20 }" class="max-w-3xl">
+        <AccentBar class="mb-7" />
         <h1 class="display text-[clamp(2.5rem,5vw,4.25rem)] text-balance">Choisir ta voie, avec des informations vérifiées.</h1>
-        <p class="lead mt-5 max-w-xl">Pour les élèves de Terminale, les nouveaux bacheliers et les étudiants qui veulent se réorienter.</p>
+        <p class="mt-5 max-w-xl text-[clamp(1.125rem,1.6vw,1.3125rem)] leading-snug text-white/80">Pour les élèves de Terminale, les nouveaux bacheliers et les étudiants qui veulent se réorienter.</p>
         <div class="mt-9 flex flex-wrap items-center gap-3">
           <template v-if="store.done">
-            <BaseButton :to="{ name: 'orient-results' }" size="lg">Voir mes pistes</BaseButton>
-            <BaseButton :to="{ name: 'orient-quiz' }" variant="secondary" size="lg">Refaire le questionnaire</BaseButton>
+            <BaseButton :to="{ name: 'orient-results' }" variant="light" size="lg">Voir mes pistes</BaseButton>
+            <BaseButton :to="{ name: 'orient-quiz' }" variant="glass" size="lg">Refaire le questionnaire</BaseButton>
           </template>
           <template v-else>
-            <BaseButton :to="{ name: 'orient-quiz' }" size="lg">
+            <BaseButton :to="{ name: 'orient-quiz' }" variant="light" size="lg">
               {{ store.answered ? `Reprendre (${store.answered} sur ${orientQuestions.length})` : 'Commencer le questionnaire' }}
             </BaseButton>
-            <BaseButton :to="{ name: 'orient-assistant' }" variant="secondary" size="lg">Poser une question</BaseButton>
+            <BaseButton :to="{ name: 'orient-assistant' }" variant="glass" size="lg">Poser une question</BaseButton>
           </template>
         </div>
-      </div>
-      <div class="aspect-[4/5] overflow-hidden rounded-tile bg-paper-2 sm:aspect-[4/3] lg:aspect-[4/5]">
-        <ResponsiveImage name="orienter" sizes="(min-width: 1024px) 40vw, 100vw" eager />
       </div>
     </div>
   </section>
 
   <section aria-labelledby="comment" class="section bg-paper-2">
     <div class="wrap">
-      <h2 id="comment" class="h2">Comment ça marche.</h2>
+      <h2 id="comment" class="h2">Comment ça marche</h2>
       <ol class="mt-14 grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
         <li v-for="(s, i) in steps" :key="s.title" class="min-w-0">
           <span class="grid h-12 w-12 place-items-center rounded-2xl bg-white text-navy shadow-soft" aria-hidden="true">
@@ -70,7 +67,7 @@ const promises = [
   <section class="section bg-white">
     <div class="wrap grid grid-cols-1 gap-12 lg:grid-cols-12">
       <div class="min-w-0 lg:col-span-6">
-        <h2 class="h2">Nos engagements.</h2>
+        <h2 class="h2">Nos engagements</h2>
         <ul class="mt-10 divide-y divide-rule">
           <li v-for="p in promises" :key="p" class="flex gap-3 py-4 first:pt-0">
             <Check :size="20" class="mt-0.5 shrink-0 text-green" aria-hidden="true" /><span class="text-[1.0625rem]">{{ p }}</span>

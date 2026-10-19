@@ -2,9 +2,10 @@
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Award, FileText, Globe, ShieldCheck } from 'lucide-vue-next'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import SchoolSearch from '@/components/school/SchoolSearch.vue'
+import AccentBar from '@/components/brand/AccentBar.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
+import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import { cities } from '@/data/questions'
 import { officialStatuses, reflexes } from '@/data/schoolGuide'
 import { useToast } from '@/composables/useToast'
@@ -40,11 +41,14 @@ async function submitRequest() {
 
 <template>
   <!-- Recherche, posée sur une photo de diplômés -->
-  <section class="bg-white pt-3 pb-16 sm:pt-4">
-    <div class="wrap-wide relative overflow-hidden rounded-tile bg-navy-deep">
-      <ResponsiveImage name="ecoles" sizes="100vw" eager class="absolute inset-0" />
-      <div class="absolute inset-0 bg-linear-to-b from-[#04112a]/80 via-[#04112a]/45 to-[#04112a]/70" aria-hidden="true"></div>
-      <div class="relative mx-auto max-w-3xl px-6 pt-16 pb-24 text-center text-white sm:pt-24 sm:pb-32">
+  <section class="bg-white pb-16">
+    <div class="relative overflow-hidden bg-navy-deep">
+      <div v-parallax="40" class="absolute inset-x-0 -inset-y-12">
+        <ResponsiveImage name="ecoles" sizes="100vw" eager />
+      </div>
+      <div class="absolute inset-0 bg-linear-to-b from-[#071e44]/85 via-[#071e44]/60 to-[#071e44]/85" aria-hidden="true"></div>
+      <div v-reveal.once.stagger="{ distance: 20 }" class="relative mx-auto max-w-3xl px-6 pt-16 pb-24 text-center text-white sm:pt-24 sm:pb-32">
+        <AccentBar center class="mb-6" />
         <h1 class="display text-[clamp(2.5rem,5.5vw,4.5rem)]">Vérifier une école</h1>
         <p class="mx-auto mt-4 max-w-xl text-[clamp(1.0625rem,1.5vw,1.25rem)] text-white/85">
           Avant de payer une inscription, vérifie que l'établissement est habilité et que ta formation est accréditée. Gratuit et

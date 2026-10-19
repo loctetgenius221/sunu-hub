@@ -39,7 +39,7 @@ function submit() {
           <label class="flex items-center gap-2"><input v-model="channel" type="radio" value="appel" class="accent-navy" />Appel</label>
         </div>
       </fieldset>
-      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4">
+      <div class="mt-7 flex flex-wrap items-center gap-x-6 gap-y-4 max-sm:justify-center">
         <BaseButton type="submit" :disabled="message.trim().length < 10">Envoyer ma question</BaseButton>
         <button type="button" class="font-semibold underline underline-offset-4" @click="open = false">Annuler</button>
       </div>

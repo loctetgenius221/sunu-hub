@@ -10,7 +10,7 @@ const { show } = useToast()
 
 function toggle() {
   const saved = activity.toggleSave(props.id)
-  show(saved ? 'Offre sauvegardée : rappels sept jours et un jour avant la date limite.' : 'Offre retirée de tes sauvegardes.')
+  show(saved ? 'Offre sauvegardée. On te rappelle la date limite 7 jours et 1 jour avant.' : 'Offre retirée de tes sauvegardes.')
 }
 </script>
 

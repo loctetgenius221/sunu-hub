@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
+import { RouterLink } from 'vue-router'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import type { Consent } from '@/types'
 
@@ -80,7 +81,13 @@ function submit() {
 
     <label class="mt-7 flex items-start gap-3 text-sm">
       <input v-model="form.terms" type="checkbox" class="mt-0.5 h-5 w-5 shrink-0 accent-navy" :aria-invalid="touched && errors.terms" />
-      <span>J'accepte les conditions d'utilisation et la politique de confidentialité. Je peux exporter ou supprimer mes données à tout moment.</span>
+      <span>
+        J'accepte les
+        <RouterLink to="/conditions-utilisation" target="_blank" class="font-medium text-navy underline underline-offset-2">conditions d'utilisation</RouterLink>
+        et la
+        <RouterLink to="/confidentialite" target="_blank" class="font-medium text-navy underline underline-offset-2">politique de confidentialité</RouterLink>.
+        Je peux exporter ou supprimer mes données à tout moment.
+      </span>
     </label>
 
     <p v-if="touched && !valid" class="mt-5 rounded-control bg-orange-soft px-4 py-3 text-[0.9375rem] font-medium text-orange" role="alert">

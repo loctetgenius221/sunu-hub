@@ -5,7 +5,7 @@ const { toasts } = useToast()
 </script>
 
 <template>
-  <div class="pointer-events-none fixed inset-x-0 bottom-5 z-50 flex flex-col items-center gap-2 px-4" role="status" aria-live="polite">
+  <div class="pointer-events-none fixed inset-x-0 bottom-[calc(1.25rem+env(safe-area-inset-bottom))] z-50 flex flex-col items-center gap-2 px-4" role="status" aria-live="polite">
     <TransitionGroup
       enter-from-class="opacity-0 translate-y-3 scale-95"
       leave-to-class="opacity-0 scale-95"

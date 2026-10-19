@@ -34,7 +34,7 @@ function resend() {
 
 <template>
   <form novalidate @submit.prevent="emit('submit', code)">
-    <h1 class="display text-[clamp(1.875rem,3.4vw,2.5rem)]">Ton code</h1>
+    <h1 class="display text-[clamp(1.875rem,3.4vw,2.5rem)]">Entre ton code</h1>
     <p class="mt-3 text-ink-soft">
       Envoyé par {{ channel === 'whatsapp' ? 'WhatsApp' : 'SMS' }} au <span class="font-semibold whitespace-nowrap text-ink">+221 {{ formatted }}</span>.
       <button type="button" class="ml-1 font-medium text-navy hover:underline" @click="emit('back')">
@@ -45,6 +45,7 @@ function resend() {
     <label for="otp" class="label mt-8">Code à 6 chiffres</label>
     <input
       id="otp"
+      autofocus
       v-model="code"
       type="text"
       inputmode="numeric"
@@ -59,7 +60,7 @@ function resend() {
       {{ error ? 'Ce code ne correspond pas. Réessaie.' : `Maquette : utilise le code ${DEMO_CODE}.` }}
     </p>
 
-    <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
+    <div class="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4 max-sm:justify-center">
       <BaseButton type="submit" :disabled="busy || code.length !== 6">{{ busy ? 'Vérification…' : 'Valider' }}</BaseButton>
       <button type="button" class="text-[0.9375rem] font-medium text-navy hover:underline disabled:text-ink-soft disabled:no-underline" :disabled="wait > 0" @click="resend">
         {{ wait > 0 ? `Renvoyer le code dans ${wait} s` : 'Renvoyer le code' }}
