@@ -4,6 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { Award, FileText, Globe, ShieldCheck } from 'lucide-vue-next'
 import SchoolSearch from '@/components/school/SchoolSearch.vue'
 import AccentBar from '@/components/brand/AccentBar.vue'
+import WaxBand from '@/components/brand/WaxBand.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import { cities } from '@/data/questions'
@@ -47,6 +48,7 @@ async function submitRequest() {
         <ResponsiveImage name="ecoles" sizes="100vw" eager />
       </div>
       <div class="absolute inset-0 bg-linear-to-b from-[#071e44]/85 via-[#071e44]/60 to-[#071e44]/85" aria-hidden="true"></div>
+      <WaxBand class="absolute inset-x-0 bottom-0" />
       <div v-reveal.once.stagger="{ distance: 20 }" class="relative mx-auto max-w-3xl px-6 pt-16 pb-24 text-center text-white sm:pt-24 sm:pb-32">
         <AccentBar center class="mb-6" />
         <h1 class="display text-[clamp(2.5rem,5.5vw,4.5rem)]">Vérifier une école</h1>

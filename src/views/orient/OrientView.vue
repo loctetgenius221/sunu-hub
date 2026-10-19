@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { Check, ListChecks, ListOrdered, Route } from 'lucide-vue-next'
 import AccentBar from '@/components/brand/AccentBar.vue'
+import WaxBand from '@/components/brand/WaxBand.vue'
 import AdvisorDialog from '@/components/orient/AdvisorDialog.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { orientQuestions } from '@/data/orientQuestions'
@@ -46,6 +47,7 @@ const promises = [
         </div>
       </div>
     </div>
+    <WaxBand />
   </section>
 
   <section aria-labelledby="comment" class="section bg-paper-2">

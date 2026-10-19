@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Check, Clock, FileText, Inbox, ShieldCheck } from 'lucide-vue-next'
 import AccentBar from '@/components/brand/AccentBar.vue'
+import WaxBand from '@/components/brand/WaxBand.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import SectionHead from '@/components/ui/SectionHead.vue'
 import { freeNow, howItWorks, later } from '@/data/structuresPage'
@@ -29,6 +30,7 @@ const icons = { shield: ShieldCheck, file: FileText, inbox: Inbox }
         </div>
       </div>
     </div>
+    <WaxBand />
   </section>
 
   <section aria-labelledby="etapes" class="section bg-white">

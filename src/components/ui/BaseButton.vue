@@ -42,7 +42,7 @@ const sizes = {
     :to="to"
     :href="href"
     :type="tag === 'button' ? type : undefined"
-    class="inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,scale,box-shadow] duration-200 active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40"
+    class="inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-[-0.01em] transition-[background-color,scale,box-shadow] duration-200 active:scale-[0.98] disabled:opacity-40 disabled:active:scale-100"
     :class="[variants[variant], sizes[size], block ? 'w-full' : size !== 'sm' && !inline && 'max-sm:w-full']"
   >
     <slot />

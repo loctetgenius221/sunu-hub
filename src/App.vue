@@ -3,6 +3,7 @@ import { RouterView } from 'vue-router'
 import SiteHeader from '@/components/layout/SiteHeader.vue'
 import SiteFooter from '@/components/layout/SiteFooter.vue'
 import ToastHost from '@/components/layout/ToastHost.vue'
+import WhatsAppButton from '@/components/layout/WhatsAppButton.vue'
 </script>
 
 <template>
@@ -31,5 +32,6 @@ import ToastHost from '@/components/layout/ToastHost.vue'
     </RouterView>
   </main>
   <SiteFooter />
+  <WhatsAppButton />
   <ToastHost />
 </template>

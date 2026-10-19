@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watchEffect } from 'vue'
+import { computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import { FileWarning } from 'lucide-vue-next'
 import AccentBar from '@/components/brand/AccentBar.vue'
@@ -10,7 +10,6 @@ import { LEGAL_UPDATED, legalPages } from '@/data/legal'
 const props = defineProps<{ slug: string }>()
 const page = computed(() => legalPages.find((p) => p.slug === props.slug)!)
 const others = computed(() => legalPages.filter((p) => p.slug !== props.slug))
-watchEffect(() => (document.title = `${page.value.title} · SUNU HŪB`))
 const updated = new Date(LEGAL_UPDATED).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })
 </script>
 

@@ -5,6 +5,8 @@ import { animate, scroll, stagger } from 'motion'
 import { EASE, prefersReducedMotion } from '@/composables/useMotion'
 import { BadgeCheck, CalendarClock } from 'lucide-vue-next'
 import AccentBar from '@/components/brand/AccentBar.vue'
+import WaxBand from '@/components/brand/WaxBand.vue'
+import WaxTexture from '@/components/brand/WaxTexture.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import { demoProfile, stages } from '@/data/home'
 import { formatDate } from '@/data/labels'
@@ -64,7 +66,8 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
 </script>
 
 <template>
-  <section ref="section" class="bg-navy-deep text-white" aria-labelledby="hero-title">
+  <section ref="section" class="relative isolate bg-navy-deep text-white" aria-labelledby="hero-title">
+    <WaxTexture parallax />
     <div
       class="wrap grid grid-cols-1 items-center gap-12 py-14 sm:py-20 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-16 lg:py-24"
     >
@@ -146,5 +149,6 @@ onBeforeUnmount(() => stops.forEach((s) => s()))
         </ul>
       </div>
     </div>
+    <WaxBand />
   </section>
 </template>

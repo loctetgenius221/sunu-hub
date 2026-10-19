@@ -1,25 +1,104 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-SN">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <meta name="theme-color" content="#ffffff" />
+    <title>SUNU HŪB : orientation, stages, bourses et emplois au Sénégal</title>
     <meta
       name="description"
-      content="SUNU HŪB, la plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise : orientation, stages, bourses, concours et premiers emplois."
+      content="Orientation après le bac, stages, bourses, concours et emplois au Sénégal : des offres vérifiées, triées pour ton profil, et les écoles reconnues par l’État."
     />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <link rel="canonical" href="%VITE_SITE_URL%/" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="application-name" content="SUNU HŪB" />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Aperçus de partage (WhatsApp, Facebook, LinkedIn, X) : lus sans exécuter le JavaScript. -->
+    <meta property="og:site_name" content="SUNU HŪB" />
+    <meta property="og:locale" content="fr_SN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="SUNU HŪB : orientation, stages, bourses et emplois au Sénégal" />
+    <meta
+      property="og:description"
+      content="La plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise. Des offres vérifiées, triées pour ton profil. Gratuit."
+    />
+    <meta property="og:url" content="%VITE_SITE_URL%/" />
+    <meta property="og:image" content="%VITE_SITE_URL%/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SUNU HŪB, la plateforme intelligente de la jeunesse sénégalaise" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SUNU HŪB : orientation, stages, bourses et emplois au Sénégal" />
+    <meta
+      name="twitter:description"
+      content="La plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise. Des offres vérifiées, triées pour ton profil. Gratuit."
+    />
+    <meta name="twitter:image" content="%VITE_SITE_URL%/og-image.png" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&family=Montserrat:wght@500;700&display=swap"
       rel="stylesheet"
     />
-    <title>SUNU HŪB</title>
+
+    <!-- Données structurées du site : identité de l'organisation et recherche directe depuis Google. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "%VITE_SITE_URL%/#organisation",
+            "name": "SUNU HŪB",
+            "alternateName": "Sunu Hub",
+            "url": "%VITE_SITE_URL%/",
+            "logo": "%VITE_SITE_URL%/pwa-512.png",
+            "description": "La plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise.",
+            "areaServed": { "@type": "Country", "name": "Sénégal" },
+            "sameAs": [
+              "https://www.facebook.com/sunuhub",
+              "https://www.tiktok.com/@sunuhub",
+              "https://www.instagram.com/sunuhub",
+              "https://www.linkedin.com/company/sunuhub",
+              "https://www.youtube.com/@sunuhub",
+              "https://x.com/sunuhub"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "%VITE_SITE_URL%/#site",
+            "name": "SUNU HŪB",
+            "url": "%VITE_SITE_URL%/",
+            "inLanguage": "fr-SN",
+            "publisher": { "@id": "%VITE_SITE_URL%/#organisation" },
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": { "@type": "EntryPoint", "urlTemplate": "%VITE_SITE_URL%/opportunites?q={search_term_string}" },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>
+    <noscript>
+      <h1>SUNU HŪB : orientation, stages, bourses et emplois au Sénégal</h1>
+      <p>La plateforme intelligente qui accompagne, connecte et valorise la jeunesse sénégalaise. Active JavaScript pour utiliser le site.</p>
+      <ul>
+        <li><a href="/opportunites">Stages, bourses, concours et emplois</a></li>
+        <li><a href="/orienter">Orientation après le bac</a></li>
+        <li><a href="/verifier-ecole">Vérifier si une école est reconnue par l’État</a></li>
+        <li><a href="/structures">Publier une offre gratuitement</a></li>
+        <li><a href="/aide">Aide et questions fréquentes</a></li>
+      </ul>
+    </noscript>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

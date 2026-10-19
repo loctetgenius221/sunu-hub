@@ -10,6 +10,7 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import { formatDate, opportunityTypes, verification } from '@/data/labels'
 import { REPORT_LIMIT, getOpportunity, reportOpportunity, sendFeedback } from '@/services/api'
 import { daysLeft, reminders, scoreOpportunity } from '@/services/matching'
+import { breadcrumb, jobPosting, setSeo } from '@/services/seo'
 import { useToast } from '@/composables/useToast'
 import { useActivityStore } from '@/stores/activity'
 import { useProfileStore } from '@/stores/profile'
@@ -23,7 +24,20 @@ const activity = useActivityStore()
 const { show } = useToast()
 
 const item = ref<Detail | null | undefined>(undefined)
-onMounted(async () => (item.value = await getOpportunity(String(route.params.id))))
+onMounted(async () => {
+  const o = (item.value = await getOpportunity(String(route.params.id)))
+  if (!o) return setSeo({ title: 'Offre introuvable', path: route.path, noindex: true })
+  setSeo({
+    title: `${o.title}, ${o.structure.name}`,
+    description: `${opportunityTypes[o.type]} à ${o.city}. ${o.summary} Date limite : ${formatDate(o.deadline)}.`,
+    path: route.path,
+    type: 'article',
+    jsonLd: [
+      breadcrumb([['Accueil', '/'], ['Opportunités', '/opportunites'], [o.title, route.path]]),
+      ...[jobPosting(o)].filter((x) => x !== null),
+    ],
+  })
+})
 
 const scored = computed(() => (item.value && profile.profile ? scoreOpportunity(item.value, item.value.structure, profile.profile) : null))
 const left = computed(() => (item.value ? daysLeft(item.value.deadline) : 0))

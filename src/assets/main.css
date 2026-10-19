@@ -65,6 +65,27 @@
   }
 
 
+  /* Curseur main sur tout ce qui se clique (Tailwind v4 ne le met plus par défaut sur les boutons),
+     curseur « interdit » sur ce qui est désactivé. */
+  button,
+  [role='button'],
+  [type='button'],
+  [type='submit'],
+  [type='reset'],
+  summary,
+  select,
+  label:has(> input[type='radio']),
+  label:has(> input[type='checkbox']),
+  input[type='radio'],
+  input[type='checkbox'],
+  input[type='file'] {
+    cursor: pointer;
+  }
+  :disabled,
+  [aria-disabled='true'] {
+    cursor: not-allowed;
+  }
+
   ::selection {
     background: var(--color-navy-soft);
   }
@@ -93,6 +114,33 @@
 }
 
 @layer components {
+  /* Motifs textiles (public/patterns) : dessins originaux inspirés du tissage manjak, du kente
+     et du bogolan. Décoratifs uniquement : jamais derrière un texte long, jamais animés en boucle,
+     absents à l'impression et en mode contraste élevé. */
+  .wax-band {
+    background: url('/patterns/tissage.svg') repeat-x 0 0 / auto 100%;
+  }
+  .wax-losange,
+  .wax-bogolan {
+    background-color: currentColor;
+    mask-repeat: repeat;
+  }
+  .wax-losange {
+    mask-image: url('/patterns/losange.svg');
+    mask-size: 40px;
+  }
+  .wax-bogolan {
+    mask-image: url('/patterns/bogolan.svg');
+    mask-size: 48px;
+  }
+  @media print, (forced-colors: active) {
+    .wax-band,
+    .wax-losange,
+    .wax-bogolan {
+      display: none;
+    }
+  }
+
   /* Titres : graisse 600, interlettrage resserré, interlignage court. */
   .display {
     font-weight: 600;

@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { ChevronDown, Flag, Mail, MessageCircle, Search } from 'lucide-vue-next'
 import AccentBar from '@/components/brand/AccentBar.vue'
+import WaxBand from '@/components/brand/WaxBand.vue'
 import LegalText from '@/components/legal/LegalText.vue'
 import { contact, faq } from '@/data/legal'
 import { normalize } from '@/services/filters'
@@ -30,6 +31,7 @@ const groups = computed(() => {
         <input id="faq-q" v-model="q" type="search" placeholder="Ex. : supprimer mon compte, Campusen" class="min-w-0 flex-1 bg-transparent px-3 py-4 outline-none placeholder:text-ink-soft" />
       </form>
     </div>
+    <WaxBand />
   </section>
 
   <div class="bg-paper-2">

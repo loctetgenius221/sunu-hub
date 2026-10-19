@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import WaxTexture from '@/components/brand/WaxTexture.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import TextLink from '@/components/ui/TextLink.vue'
 
@@ -6,7 +7,8 @@ import TextLink from '@/components/ui/TextLink.vue'
 </script>
 
 <template>
-  <section class="section bg-paper-2 text-center">
+  <section class="section relative isolate bg-paper-2 text-center">
+    <WaxTexture motif="bogolan" tone="text-navy/[0.07]" from="edges" />
     <div class="wrap">
       <p class="text-[0.9375rem] font-medium text-navy">Erreur 404</p>
       <h1 class="display mx-auto mt-3 max-w-2xl text-[clamp(2.5rem,5vw,4rem)]">Cette page n'existe pas, ou plus.</h1>

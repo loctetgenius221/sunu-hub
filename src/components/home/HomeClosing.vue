@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import WaxTexture from '@/components/brand/WaxTexture.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
 import TextLink from '@/components/ui/TextLink.vue'
 import { useProfileStore } from '@/stores/profile'
@@ -8,7 +9,8 @@ const profile = useProfileStore()
 </script>
 
 <template>
-  <section v-if="!profile.isRegistered" aria-labelledby="commencer" class="section bg-paper-2 text-center">
+  <section v-if="!profile.isRegistered" aria-labelledby="commencer" class="section relative isolate bg-paper-2 text-center">
+    <WaxTexture motif="bogolan" tone="text-navy/[0.07]" from="edges" />
     <div v-reveal class="wrap">
       <h2 id="commencer" class="display mx-auto max-w-3xl text-[clamp(2.25rem,5vw,4rem)] text-balance">Ton profil, prêt en deux minutes.</h2>
       <p class="lead mx-auto mt-5 max-w-xl">Ton numéro de téléphone, cinq questions, et tu vois déjà ce qui te correspond.</p>

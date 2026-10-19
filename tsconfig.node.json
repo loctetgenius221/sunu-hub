@@ -3,6 +3,7 @@
   "extends": "@tsconfig/node24/tsconfig.json",
   "include": [
     "vite.config.*",
+    "seo.plugin.ts",
     "vitest.config.*",
     "cypress.config.*",
     "playwright.config.*",
@@ -14,6 +15,8 @@
     "module": "preserve",
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    // Le plugin SEO lit les données du site, qui importent leurs types via « @/ ».
+    "paths": { "@/*": ["./src/*"] },
 
     // Include Node.js types and avoid accidentally including other `@types/*` packages.
     "types": ["node"],

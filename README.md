@@ -56,12 +56,32 @@ src/
   views/              une vue par route
 ```
 
+## Motifs textiles
+
+Trois dessins originaux (`public/patterns`), inspirés des tissages d'Afrique de l'Ouest sans reprendre aucun motif existant : les dessins de wax des fabricants sont protégés, et certains symboles (adinkra) ont un sens sacré.
+
+- `tissage.svg` : la bande tissée, signature du site (rythme du kente et du pagne tissé manjak, aux couleurs SUNU HŪB). Elle ferme les bandeaux marine et ouvre le pied de page (`WaxBand`).
+- `losange.svg` : treillis de losanges, ton sur ton, dans le héros de l'accueil (`WaxTexture`, avec légère parallaxe).
+- `bogolan.svg` : zigzags et points, ton sur ton sur fond clair (appel final, page introuvable).
+
+Règles : jamais derrière un texte long (un dégradé efface le motif du côté du texte), opacité de 7 % au plus pour les textures, orange réservé à la bande, aucune animation en boucle, masqués à l'impression et en mode contraste élevé, vectoriels et mis en cache hors connexion.
+
 ## Mouvement
 
 - `v-reveal` : le bloc entre quand il arrive à l'écran et se retire quand il en sort, du côté par lequel il sort. `.stagger` décale les enfants, `.once` joue une seule fois (haut de page, pages de travail).
 - `v-parallax="n"` : glissement de ±n px réglé sur le défilement (photos des structures et de la vérification d'école).
 - Héros de l'accueil : apparition orchestrée au chargement, puis sortie réglée sur le défilement ; rail de progression dans « Comment ça marche ».
 - Règles : transform et opacity uniquement ; état caché posé en JavaScript (contenu visible sans script et à l'impression) ; aucune animation sous « réduire les animations ».
+
+## Référencement (SEO)
+
+- `services/seo.ts` : titre, description, adresse canonique, aperçus de partage (Open Graph, X) et robots, mis à jour à chaque page par le routeur (`meta.title`, `meta.description`, `meta.noindex`).
+- Titres calqués sur les recherches réelles : « Orientation après le bac au Sénégal », « Vérifier si une école est reconnue par l’État », « [école] est-elle reconnue par l’État ? ».
+- Données structurées schema.org : `Organization` et `WebSite` avec recherche (index.html), `JobPosting` pour les stages et emplois ouverts (éligibles à Google Jobs), `CollegeOrUniversity` pour les écoles, fil d’Ariane sur les fiches.
+- `sitemap.xml` et `robots.txt` générés au build depuis les données (`seo.plugin.ts`) ; pages personnelles exclues et marquées `noindex`.
+- Image de partage : `public/og-image.png` (1200 × 630).
+- Domaine : `VITE_SITE_URL` dans `.env`, à remplacer par l’adresse définitive avant la mise en ligne.
+- À prévoir en production : prérendu des pages publiques (par exemple `vite-ssg`) pour que le contenu soit dans le HTML dès le premier octet ; inscription du site dans Google Search Console avec le sitemap.
 
 ## Moteurs de règles (TDR §6.2)
 

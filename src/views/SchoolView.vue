@@ -7,6 +7,7 @@ import BaseButton from '@/components/ui/BaseButton.vue'
 import { formatDate, schoolStatus } from '@/data/labels'
 import { useToast } from '@/composables/useToast'
 import { getSchool } from '@/services/api'
+import { breadcrumb, schoolOrganization, setSeo } from '@/services/seo'
 import type { School } from '@/types'
 
 // Fiche d'établissement partageable (TDR O1–O2) : statut de l'école, puis statuts séparés
@@ -16,8 +17,16 @@ const { show } = useToast()
 
 const school = ref<School | null | undefined>(undefined)
 onMounted(async () => {
-  school.value = await getSchool(String(route.params.id))
-  if (school.value) document.title = `${school.value.name} · Vérifier une école · SUNU HŪB`
+  const s = (school.value = await getSchool(String(route.params.id)))
+  if (!s) return setSeo({ title: 'École introuvable', path: route.path, noindex: true })
+  // Titre calqué sur la question que les familles tapent : « [école] est-elle reconnue ? »
+  setSeo({
+    title: `${s.acronym ?? s.name} est-elle reconnue par l’État ?`,
+    description: `${s.name} (${s.city}) : ${schoolStatus[s.status].label.toLowerCase()}. Statut de ses ${s.programs.length} formations, vérifié le ${formatDate(s.verifiedAt)} sur sources officielles.`,
+    path: route.path,
+    type: 'article',
+    jsonLd: [breadcrumb([['Accueil', '/'], ['Vérifier une école', '/verifier-ecole'], [s.name, route.path]]), schoolOrganization(s)],
+  })
 })
 
 const status = computed(() => (school.value ? schoolStatus[school.value.status] : null))
