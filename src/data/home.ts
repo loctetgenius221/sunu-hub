@@ -26,6 +26,22 @@ export const stages: { id: Stage; label: string; promise: string }[] = [
   },
 ]
 
+/**
+ * Réseau du héros : « Toi » au centre, relié à tout ce que la plateforme peut t'apporter.
+ * `angle` en degrés, sens horaire depuis le haut. `for` : les stades pour lesquels le nœud
+ * s'allume quand on choisit « Je suis… ».
+ */
+export const hubNodes: { id: string; label: string; angle: number; for: Stage[] }[] = [
+  { id: 'stage', label: 'Stage', angle: -38, for: ['etudiant', 'diplome'] },
+  { id: 'emploi', label: 'Emploi', angle: 28, for: ['diplome'] },
+  { id: 'concours', label: 'Concours', angle: 76, for: ['terminale', 'bachelier', 'etudiant'] },
+  { id: 'financement', label: 'Financement', angle: 122, for: ['etudiant', 'diplome'] },
+  { id: 'incubateur', label: 'Incubateur', angle: 172, for: ['diplome'] },
+  { id: 'universite', label: 'Université', angle: 218, for: ['terminale', 'bachelier'] },
+  { id: 'ong', label: 'ONG', angle: 262, for: ['etudiant', 'diplome'] },
+  { id: 'formation', label: 'Formation', angle: 298, for: ['terminale', 'bachelier', 'etudiant', 'diplome'] },
+]
+
 /** Profil d'exemple pour l'aperçu du fil sur l'accueil. */
 export const demoProfile: Profile = {
   phone: '',
@@ -43,15 +59,25 @@ export const alerts = [
   { time: '08:05', text: 'Dernier jour pour le concours d’entrée en école de commerce.' },
 ]
 
-export const structuresPitch = {
-  title: 'Publiez vos opportunités, gratuitement.',
-  lead: 'Un compte vérifié, un formulaire court : vos offres arrivent directement aux jeunes dont le profil correspond.',
-  points: [
-    'Le nombre de profils correspondants, visible avant de publier',
-    'Les candidatures triées de la plus adaptée à la moins adaptée',
-    'Un badge « vérifiée » pour votre structure',
-  ],
-  matching: { count: 1248, filters: ['Licence', 'Informatique', 'Dakar'] },
+/**
+ * Section « deux publics » de l'accueil. Le premier ou le second mot du titre est mis en valeur.
+ * Côté structures : « Ne triez plus » plutôt que « Ne publiez plus » (publier reste l'action
+ * proposée) ; et pas de recherche directe de profils, contraire à la charte : un jeune n'est
+ * contacté que s'il l'a demandé ou accepté.
+ */
+export const audiences = {
+  youth: {
+    eyebrow: 'Pour les jeunes',
+    title: ['Gratuit.', 'Pour toujours.'],
+    lead: 'Un seul profil qui grandit avec toi, du bac jusqu’à ton premier emploi ou ta propre entreprise.',
+    proof: 'opportunités ouvertes en ce moment, chacune avec sa source et sa date limite.',
+  },
+  orgs: {
+    eyebrow: 'Pour les structures',
+    title: ['Ne triez plus.', 'Trouvez.'],
+    lead: 'Votre offre arrive directement aux jeunes dont le profil correspond, au lieu de centaines de candidatures à trier.',
+    proof: { count: 1248, label: 'jeunes correspondent à un stage en informatique à Dakar. Vous le savez avant de publier.' },
+  },
 }
 
 /** Règles de neutralité du TDR (§5.2), écrites dans les conditions d'utilisation. */

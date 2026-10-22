@@ -5,18 +5,12 @@ import { EASE, prefersReducedMotion } from '@/composables/useMotion'
 
 // Annotations dessinées à la main : un seul trait, orange du logo, tracé à l'écran une fois
 // quand il apparaît. Chaque dessin a un rôle précis (guider vers une action, souligner une
-// promesse) ; ils restent rares : quatre sur tout le site. Décoratifs, ignorés des lecteurs d'écran.
-type Name = 'arrow-curve' | 'arrow-loop' | 'underline' | 'megaphone'
+// promesse) ; ils restent rares : trois sur tout le site. Décoratifs, ignorés des lecteurs d'écran.
+type Name = 'arrow-loop' | 'underline' | 'megaphone'
 
 const props = withDefaults(defineProps<{ name: Name; delay?: number }>(), { delay: 0 })
 
 const drawings: Record<Name, { viewBox: string; paths: string[]; stretch?: boolean }> = {
-  // Flèche courbe : relie une action à son résultat.
-  'arrow-curve': {
-    viewBox: '0 0 120 80',
-    // Part d'en bas à gauche, remonte et arrive à l'horizontale : la pointe vise ce qui est à droite.
-    paths: ['M8 70c4-28 34-46 98-42', 'M93 18.5l13 9.5-13.5 8'],
-  },
   // Flèche en boucle : désigne l'action finale.
   'arrow-loop': {
     viewBox: '0 0 120 90',

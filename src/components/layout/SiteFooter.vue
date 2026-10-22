@@ -4,7 +4,6 @@ import { ArrowUp } from 'lucide-vue-next'
 import BrandIcon from '@/components/brand/BrandIcon.vue'
 import SunuLogo from '@/components/brand/SunuLogo.vue'
 import WaxBand from '@/components/brand/WaxBand.vue'
-import { photos } from '@/data/photos'
 import { socials, tagline } from '@/data/site'
 
 // Pied de page. Mobile : liens sur deux colonnes, cibles tactiles larges, retour en haut.
@@ -36,7 +35,6 @@ const columns = [
     ],
   },
 ]
-const credits = Object.values(photos)
 const legal = [
   { label: 'Mentions légales', to: '/mentions-legales' },
   { label: 'Conditions d’utilisation', to: '/conditions-utilisation' },
@@ -105,30 +103,8 @@ const toTop = () => window.scrollTo({ top: 0, behavior: 'smooth' })
             <RouterLink :to="l.to" class="inline-block py-1.5 hover:text-ink hover:underline">{{ l.label }}</RouterLink>
           </li>
         </ul>
-        <div class="flex flex-wrap items-center justify-between gap-x-6 gap-y-3 lg:order-1 lg:justify-start">
-          <p>© 2026 SUNU HŪB. Maquette : données fictives.</p>
-          <details class="lg:hidden">
-            <summary class="list-none py-1.5 hover:text-ink">Crédits photo</summary>
-            <p class="mt-1">
-              <template v-for="(p, i) in credits" :key="p.name">
-                <a :href="p.url" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ p.credit }}</a
-                ><template v-if="i < credits.length - 1">, </template>
-              </template>
-              (Unsplash).
-            </p>
-          </details>
-        </div>
-        <div class="flex items-center justify-between gap-6 lg:order-3">
-          <details class="relative hidden lg:block">
-            <summary class="list-none py-1.5 hover:text-ink">Crédits photo</summary>
-            <p class="absolute right-0 bottom-full mb-2 w-72 rounded-control bg-white p-3 shadow-lift">
-              <template v-for="(p, i) in credits" :key="p.name">
-                <a :href="p.url" target="_blank" rel="noopener noreferrer" class="hover:underline">{{ p.credit }}</a
-                ><template v-if="i < credits.length - 1">, </template>
-              </template>
-              (Unsplash).
-            </p>
-          </details>
+        <p class="lg:order-1">© 2026 SUNU HŪB. Maquette : données fictives.</p>
+        <div class="lg:order-3">
           <button
             type="button"
             class="inline-flex min-h-11 items-center gap-2 rounded-full bg-white px-4 font-medium text-ink shadow-soft transition-colors hover:bg-navy hover:text-white lg:min-h-9"

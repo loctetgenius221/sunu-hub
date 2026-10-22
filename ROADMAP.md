@@ -18,7 +18,7 @@ Elle remplace la première direction (« Éditorial isométrique ») ; l'ancienn
 
 - Police unique : Instrument Sans (titres en 600, interlettrage resserré). Montserrat ne sert qu'au logotype de la charte.
 - Formes : tuiles arrondies (28 px), cartes (20 px), champs (12 px), boutons pilule ; ombres douces, filets fins.
-- Photos : deux sur tout le site (en-tête de « Vérifier une école », bandeau structures de l'accueil), Unsplash provisoires créditées en pied de page. Les autres en-têtes utilisent la couleur principale (marine profond).
+- Photos : aucune. Tous les en-têtes utilisent la couleur principale (marine profond), avec les motifs textiles en SVG.
 - Orange du logo (`#FF6B00`) en signature discrète, toujours décorative : barre d'accent au-dessus des titres d'en-tête (reprise du macron de HŪB), trait sous la navigation active, indicateur d'onglet mobile, étape en cours de l'inscription, point « ouvertes en ce moment ».
 - Mouvement (motion) : téléphone fixe dans « Comment ça marche », compteur ; tout est coupé en mouvement réduit.
 - Utilisabilité : navigation mobile par le menu, boutons principaux pleine largeur sur téléphone, filtres rapides par type, actions principales en haut des fiches, curseur placé d'office dans les champs de l'inscription.
@@ -31,12 +31,12 @@ src/
   assets/main.css        tokens Tailwind v4 + utilitaires (.display, .h2, .lead, .wrap, .field, .card, .section)
   components/
     brand/               SunuMark, SunuLogo
-    ui/                  BaseButton, TextLink, ResponsiveImage, ChoiceChips, SectionHead
+    ui/                  BaseButton, TextLink, ChoiceChips, SectionHead
     layout/              SiteHeader (translucide), SiteFooter, ToastHost
     home/                sections de l'accueil (héros photo, tuiles, rayonnage, comment ça marche…)
     opportunity/ school/ profile/ signup/ orient/ admin/   composants par domaine
   composables/           useMotion (mouvement réduit, compteur), useToast
-  data/                  mocks, contenus éditoriaux, photos
+  data/                  mocks, contenus éditoriaux
   services/              api.ts, moteurs (matching, orientation), filtres, modération, assistant
   stores/                profil, activité, orientation, structure (persistés sur l'appareil)
   types/                 modèle de données partagé

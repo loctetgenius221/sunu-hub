@@ -63,7 +63,6 @@ export const legalPages: LegalPage[] = [
         body: [
           'La marque, le logo et les textes de SUNU HŪB appartiennent à leurs auteurs. Leur reproduction demande une autorisation écrite.',
           'Les opportunités reprises d’autres sites sont présentées par un titre, un résumé court et un lien vers l’annonce d’origine, jamais par leur texte complet. Une source peut demander le retrait de ses contenus : nous le faisons sous 48 heures.',
-          'Les photos actuelles proviennent d’Unsplash, sous licence Unsplash ; leurs auteurs sont crédités en pied de page.',
         ],
       },
       {

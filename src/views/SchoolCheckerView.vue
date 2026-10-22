@@ -6,7 +6,6 @@ import SchoolSearch from '@/components/school/SchoolSearch.vue'
 import AccentBar from '@/components/brand/AccentBar.vue'
 import WaxBand from '@/components/brand/WaxBand.vue'
 import BaseButton from '@/components/ui/BaseButton.vue'
-import ResponsiveImage from '@/components/ui/ResponsiveImage.vue'
 import { cities } from '@/data/questions'
 import { officialStatuses, reflexes } from '@/data/schoolGuide'
 import { useToast } from '@/composables/useToast'
@@ -41,13 +40,9 @@ async function submitRequest() {
 </script>
 
 <template>
-  <!-- Recherche, posée sur une photo de diplômés -->
+  <!-- Recherche, posée sur le bandeau marine -->
   <section class="bg-white pb-16">
     <div class="relative overflow-hidden bg-navy-deep">
-      <div v-parallax="40" class="absolute inset-x-0 -inset-y-12">
-        <ResponsiveImage name="ecoles" sizes="100vw" eager />
-      </div>
-      <div class="absolute inset-0 bg-linear-to-b from-[#071e44]/85 via-[#071e44]/60 to-[#071e44]/85" aria-hidden="true"></div>
       <WaxBand class="absolute inset-x-0 bottom-0" />
       <div v-reveal.once.stagger="{ distance: 20 }" class="relative mx-auto max-w-3xl px-6 pt-16 pb-24 text-center text-white sm:pt-24 sm:pb-32">
         <AccentBar center class="mb-6" />
